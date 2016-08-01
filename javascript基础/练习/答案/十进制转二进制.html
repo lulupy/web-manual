@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var num = prompt("输入一个正整数");
+		var str = "";
+		do {
+			var mod = num % 2;
+			str = mod + str;
+			num = (num - mod) / 2;
+		} while(num >= 1);
+		// for (var str = ""; num >= 1; num = (num - mod) / 2) {
+		// 	var mod = num % 2;
+		// 	str = mod + str;
+		// }
+		console.info(str);
+	</script>
+</body>
+</html>

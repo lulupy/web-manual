@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>侧栏工具条</title>
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style: none;
+}
+
+.tool-bar{
+    width: 52px;
+    margin: 200px;
+}
+.tool-bar-item{
+    width: 52px;
+    height: 52px;
+    margin-bottom: 1px;
+    position: relative;
+    line-height: 26px;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+    background-color: #ccc;
+    background-size: 52px 52px;
+}
+
+.tool-bar-item .tool-bar-text{
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 52px;
+    height: 0px;
+    background-color: #222;
+    transition: height 1s ease;
+    overflow: hidden;
+}
+
+.tool-bar-item .tool-bar-layer{
+    width: 150px;
+    position: absolute;
+    bottom: 0;
+    left: -150px;
+    box-shadow: 0 0 9px black;
+    -webkit-transform: scale(0);
+    -webkit-transition: all 1s ease;
+    -webkit-transform-origin: right bottom;  
+    opacity: 0;
+}
+.tool-bar-weixin{
+    background-image: url('images/侧边浮动条 微信_复制.png');
+}
+
+.tool-bar-app{
+    background-image: url('images/侧边浮动条 手机_复制.png');
+}
+
+.tool-bar-top{
+    background-image: url('images/返回顶部_复制.png');
+}
+
+
+.tool-bar-item:hover .tool-bar-text{
+    height: 52px;
+}
+
+.tool-bar-item:hover .tool-bar-layer{
+    -webkit-transform: scale(1);
+    opacity: 1;
+}
+</style>
+</head>
+<body>
+    <ul class="tool-bar">
+        <li class="tool-bar-item tool-bar-weixin">
+            <span class="tool-bar-text">公众账号</span>
+            <img src="images/公众号.jpg" alt="" class="tool-bar-layer">
+        </li>
+        <li class="tool-bar-item tool-bar-app">
+            <span class="tool-bar-text" >
+                <span style="font-size: 19px">app</span>
+            下载</span>
+            <img src="images/公众号.jpg" alt="" class="tool-bar-layer">
+        </li>
+        <li class="tool-bar-item tool-bar-top">
+            <span class="tool-bar-text">返回顶部</span>
+        </li>
+</body>
+</html>

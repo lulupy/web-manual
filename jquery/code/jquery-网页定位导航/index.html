@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网页定位导航效果</title>
+	<script src="http://cdn.bootcss.com/jquery/2.2.2/jquery.js"></script>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	font-size: 12px;
+	line-height: 1.7em;
+}
+
+li{
+	list-style: none;
+}
+.content{
+	width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+
+.content h1{
+	color: #0088BB;
+
+}
+
+.content .item{
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px dotted #0088BB;
+	
+}
+
+.content .item h2{
+	font-size: 16px;
+	font-weight: bold;
+	border-bottom: 2px solid #0088BB;
+	margin-bottom: 10px;
+}
+
+.content .item li{
+	display: inline;
+	margin-left: 10px;
+
+
+}
+
+.content .item li a img{
+	width: 230px;
+	border: none;
+}
+
+nav{
+	position: fixed;
+	left: 50%;
+	top: 50px;
+	margin-left: 400px;
+	width: 80px;
+	
+}
+
+nav ul li a{
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	color: #0088BB;
+	height: 50px;
+	line-height: 50px;
+	text-decoration: none;
+	text-align: center;
+}
+
+
+nav ul li a:hover, li a.active{
+	background-color: #0088BB;
+	color: white;
+}
+</style>
+</head>
+<body>
+	<nav>
+		<ul>
+			<!-- 锚点在以前可以定位name,现在只能是id -->
+			<li><a href="#item-1" class="active">1F 男装</a></li>
+			<li><a href="#item-2">2F 女装</a></li>
+			<li><a href="#item-3">3F 童装</a></li>
+			<li><a href="#item-4">4F 数码</a></li>
+			<li><a href="#item-5">5F 母婴</a></li>
+		</ul>
+	</nav>
+	<main class="content" id="content">
+		<h1>一个购物网站</h1>
+		<section class="item" id="item-1">
+			<h2>1F 男装</h2>
+			<ul>
+				<li><a href=""><img src="1F.webp" alt=""></a></li>
+				<li><a href=""><img src="1F.webp" alt=""></a></li>
+				<li><a href=""><img src="1F.webp" alt=""></a></li>
+				<li><a href=""><img src="1F.webp" alt=""></a></li>
+				<li><a href=""><img src="1F.webp" alt=""></a></li>
+				<li><a href=""><img src="1F.webp" alt=""></a></li>
+				<li><a href=""><img src="1F.webp" alt=""></a></li>
+				<li><a href=""><img src="1F.webp" alt=""></a></li>
+				<li><a href=""><img src="1F.webp" alt=""></a></li>
+			</ul>
+		</section>
+		<section class="item"  id="item-2">
+			<h2>2F 女装</h2>
+			<ul>
+				<li><a href=""><img src="2F.webp" alt=""></a></li>
+				<li><a href=""><img src="2F.webp" alt=""></a></li>
+				<li><a href=""><img src="2F.webp" alt=""></a></li>
+				<li><a href=""><img src="2F.webp" alt=""></a></li>
+				<li><a href=""><img src="2F.webp" alt=""></a></li>
+				<li><a href=""><img src="2F.webp" alt=""></a></li>
+				<li><a href=""><img src="2F.webp" alt=""></a></li>
+				<li><a href=""><img src="2F.webp" alt=""></a></li>
+				<li><a href=""><img src="2F.webp" alt=""></a></li>
+			</ul>
+		</section>
+		<section class="item"  id="item-3">
+			<h2>3F 童装</h2>
+			<ul>
+				<li><a href=""><img src="3F.webp" alt=""></a></li>
+				<li><a href=""><img src="3F.webp" alt=""></a></li>
+				<li><a href=""><img src="3F.webp" alt=""></a></li>
+				<li><a href=""><img src="3F.webp" alt=""></a></li>
+				<li><a href=""><img src="3F.webp" alt=""></a></li>
+				<li><a href=""><img src="3F.webp" alt=""></a></li>
+				<li><a href=""><img src="3F.webp" alt=""></a></li>
+				<li><a href=""><img src="3F.webp" alt=""></a></li>
+				<li><a href=""><img src="3F.webp" alt=""></a></li>
+			</ul>
+		</section>
+		<section class="item"  id="item-4">
+			<h2>4F 数码</h2>
+			<ul>
+				<li><a href=""><img src="4F.webp" alt=""></a></li>
+				<li><a href=""><img src="4F.webp" alt=""></a></li>
+				<li><a href=""><img src="4F.webp" alt=""></a></li>
+				<li><a href=""><img src="4F.webp" alt=""></a></li>
+				<li><a href=""><img src="4F.webp" alt=""></a></li>
+				<li><a href=""><img src="4F.webp" alt=""></a></li>
+				<li><a href=""><img src="4F.webp" alt=""></a></li>
+				<li><a href=""><img src="4F.webp" alt=""></a></li>
+				<li><a href=""><img src="4F.webp" alt=""></a></li>
+			</ul>
+		</section>
+		<section class="item"  id="item-5">
+			<h2>5F 母婴</h2>
+			<ul>
+				<li><a href=""><img src="5F.webp" alt=""></a></li>
+				<li><a href=""><img src="5F.webp" alt=""></a></li>
+				<li><a href=""><img src="5F.webp" alt=""></a></li>
+				<li><a href=""><img src="5F.webp" alt=""></a></li>
+				<li><a href=""><img src="5F.webp" alt=""></a></li>
+				<li><a href=""><img src="5F.webp" alt=""></a></li>
+				<li><a href=""><img src="5F.webp" alt=""></a></li>
+				<li><a href=""><img src="5F.webp" alt=""></a></li>
+				<li><a href=""><img src="5F.webp" alt=""></a></li>
+			</ul>
+		</section>
+	</main>
+<script>
+$(document).ready(function () {
+	$(document).scroll(function(event){
+		var scrollTop = $(document).scrollTop();
+		var $items = $('#content').find(".item");
+		var activeId = "";//当前所在的楼层id
+		$items.each(function(){
+			$this = $(this);
+			var top = $this.offset().top;
+			if (scrollTop> top){
+				activeId = '#'  + $this.attr("id");
+			}else{
+				return false;
+			}
+		});
+
+		var $nav = $('nav');
+		var $activeLink = $nav.find('.active');
+		if (activeId && activeId != $activeLink.attr('href')){
+			$activeLink.removeClass('active');
+			$nav.find('[href="'+activeId+'"]').addClass("active");
+		}
+		
+	});
+});
+</script>
+</body>
+</html>

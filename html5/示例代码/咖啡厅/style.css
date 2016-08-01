@@ -1,0 +1,142 @@
+/*清楚浏览器默认样式*/
+*{
+    margin: 0px;
+    padding: 0px;
+    font: inherit;
+}
+
+/*html5 兼容ie dialog menu已在标准中移除*/
+article,aside,footer,header,section,footer,nav,figure,main{display:block}
+
+body{
+    background: #fff;
+    font: 14px 微软雅黑, 黑体, Verdana, Arial, sans-serif;
+    color: #494949;
+    border-top: 8px  solid #00643C;
+}
+ul{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+/*外层盒子*/
+.wrap{
+    width: 960px;
+    margin: 0 auto;
+}
+
+/*头部*/
+.top-header{
+    margin: 10px 0px;
+}
+.logo{
+    width: 100px;
+}
+.top-menu{
+    display: inline-block;
+}
+.top-menu li{
+    display: inline;
+    padding: 5px 10px;
+    margin: 0 5px;
+    background: #efe5d0;
+
+}
+
+.top-menu li a{
+    color:  #00643C;
+    font-weight: bold;
+}
+
+.top-menu li.active{
+    background: #8E816C;
+}
+/*侧边栏*/
+.left-aside{
+    width: 350px;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.left-aside section{
+    background: #efe5d0;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.left-aside h3{
+    color: #00643C;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.news p{
+    line-height: 1.8em;
+}
+
+
+.drinks-wrap{
+    text-align: center;
+}
+.drinks figure{
+    display: inline-block;
+    width: 45%;
+    margin-bottom: 5px;
+}
+.drinks figure.figure-l{
+    margin-right: 3%;
+}
+.drinks figure img{
+    width: 100%;
+}
+
+/*主内容*/
+main{
+    padding: 5px;
+    width: 590px;
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: top;
+    background: #F0EBE2;
+}
+
+main article{
+    border-bottom: 1px dashed #c8b99c;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+main .last-article{
+    border-bottom: none;
+}
+
+
+main article h3{
+    color: #00643C;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+main article time{
+    color: #122247;
+    font-weight: bold;
+}
+main article p{
+    line-height: 1.5em;
+    text-indent: 30px;
+    margin-right: 10px;
+}
+
+main article b {
+    font-weight: bold;
+}
+.page-footer{
+    padding: 15px;
+    margin-top: 10px;
+    background: #675c47;
+    color: #fff;
+    text-align: center;
+    font-size: 0.9em;
+}

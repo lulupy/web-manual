@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    ul{
+        list-style: none;
+    }
+    body{
+        background-color: rgb(220, 220, 220);
+    }
+    .content{
+        position: relative;
+        width: 660px;
+        height: 340px;
+        margin: 100px auto;
+        box-shadow: 0 0 10px black;
+        border-radius: 10px;
+        background: url(images/bg.jpg) no-repeat;
+    }
+    h1{
+        font-size: 70px;
+        color: rgba(255,255,255,0.9);
+        text-align: center;
+        padding-top: 70px;  
+        text-shadow: 0 0 5px yellow, 0 0 15px yellow;   
+
+    }
+
+    .wrap{
+        
+    }
+    .dock{
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        text-align: center;
+
+    }
+
+    .dock ul{
+        display: inline-block;
+    }
+    .dock li{
+        display: inline-block;
+        position: relative;
+        margin-bottom: 20px;
+        vertical-align: baseline;
+    }
+    .dock li em{
+        
+        position: absolute;
+        
+        color: white;
+        
+        width: 150px;
+        left: 50%;
+        top: -50px;
+        display: none;
+        margin-left: -75px;
+        text-align: center;
+    }
+
+    .dock li:hover em{
+
+        display: block;
+    }
+
+    .dock img {
+    width: 86px;
+    height: auto;
+    border: none;
+    transition: width .2s, height .2s;
+}
+    
+
+    .dock li:hover img{
+        width: 100px;
+    }
+    
+    .dock li em span{
+        display: inline-block;
+        padding: 10px;
+        background: rgba(0,0,0,0.9);
+        border-radius: 5px;
+    }
+
+    .dock li em:after{
+        content: '';
+        position: absolute;
+        height: 0;
+        width: 0;
+        bottom: -10px;
+        left: 50%;
+        margin-left: -5px;
+        border-top: 10px solid rgba(0,0,0,0.9);
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: none;
+
+    }
+</style>
+</head>
+<body>
+    <div class="content">
+
+        <h1>css dock</h1>
+        <div class="dock">
+            <ul>
+                <li id="mail">
+                    <a href="#mail">
+                        <em><span>Mail</span></em>
+                        <img src="images/icon-mail.png" alt="Mail">
+                    </a>
+                </li>
+                <li id="ical">
+                    <a href="#ical">
+                        <em><span>iCal</span></em>
+                        <img src="images/icon-ical.png" alt="iCal">
+                    </a>
+                </li>
+                <li id="addressbook">
+                    <a href="#addressbook">
+                        <em><span>Address Book</span></em>
+                        <img src="images/icon-addressbook.png" alt="Address Book">
+                    </a>
+                </li>
+                <li id="iphoto">
+                    <a href="#iphoto">
+                        <em><span>iPhoto</span></em>
+                        <img src="images/icon-iphoto.png" alt="iPhoto">
+                    </a>
+                </li>
+                <li id="idisk">
+                    <a href="#idisk">
+                        <em><span>iDisk</span></em>
+                        <img src="images/icon-idisk.png" alt="iDisk">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

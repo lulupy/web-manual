@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增表单属性</title>
+<style>
+*{
+    margin:0;
+    padding: 0;
+
+}
+form{
+    width: 360px;
+    border: 1px solid #111;
+    margin: 20px auto;
+}
+label{
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+}
+</style>
+</head>
+<body>
+    <form action="success.html" method="get">
+        <h2>placeholder</h2>
+        <label for="">
+            用户名:
+            <input type="text" placeholder="请输入用户名">
+        </label>
+    </form>
+
+    <form action="success.html" method="get">
+        <h2>autofocus</h2>
+        <input type="text" autofocus>
+    </form>
+
+    <form action="success.html" method="get" autocomplete="on">
+        <h2>autocomplete</h2>
+        <label for="">
+            用户名:
+            <input type="text" name="username" placeholder="请输入用户名">
+        </label>
+        <input type="submit">
+
+    </form>
+
+    <form action="success.html" method="get">
+        <select name="" id="" multiple>
+            <option value="">option1</option>
+            <option value="">option2</option>
+            <option value="">option3</option>
+        </select>
+
+    </form>
+
+    <form action="">
+        <input type="file" multiple>
+    </form>
+
+
+</body>
+</html>

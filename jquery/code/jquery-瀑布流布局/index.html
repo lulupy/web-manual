@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>瀑布流布局</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.content{
+	position: relative;
+}
+
+.content .box{
+
+	position: absolute;
+}
+.content img{
+	
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid #111;
+	box-shadow: 0 0 5px #111;
+}
+</style>
+<script src="http://cdn.bootcss.com/jquery/2.2.2/jquery.js"></script>
+<script>
+function waterFall() {
+	var $content = $("#content");
+	var windowW = $(window).width(); //窗口的宽度
+	var $boxes = $content.find(".box"); 
+	var boxW = $boxes.eq(0).width(); //box的宽度
+	var cols = Math.floor(windowW / boxW); //列数 ， 即每行可以放多少张图片
+	//计算content的宽度，并居中显示
+	$content.css({
+		width: boxW * cols + "px",
+		margin: "0 auto"
+	})
+
+	var heightArr = []; //用于存储 每列中的所有块框相加的高度。
+	$boxes.each(function (index, box) {
+		var $box = $(box);
+		var boxH= $box.height();
+		if(index<cols){
+			heightArr[index] = boxH;
+			$box.css({
+				left: boxW * index + 'px'
+			});
+		}else{
+			var minH = Math.min.apply( null, heightArr );
+			var minHIndex =  $.inArray( minH, heightArr);
+			$box.css({
+				top: minH + 'px',
+				left: boxW * minHIndex + 'px' 
+			})
+
+			heightArr[minHIndex] = minH + $box.height();//改变高度数组
+		}
+
+	})
+}
+
+
+$(document).ready(function() {
+	waterFall();
+	var testData = {'data':[{'src':'1.jpg'},{'src':'2.jpg'},{'src':'3.jpg'},{'src':'4.jpg'}]};
+	$(window).scroll(function() {
+		var scrollTop = $(window).scrollTop();
+		var documentH = $( document ).width();
+		var $lastBox = $('#content').find('.box').last();
+		var lastBoxTop = $lastBox.offset().top;
+		//判断是否满足加载条件， 这儿我们定义滑动超过了最后一个box的一半 我们触发加载
+		if (scrollTop + documentH> lastBoxTop + $lastBox.height()/2){
+			$.each(testData.data, function (index ,boxData) {
+				// 生成dom结构
+				var $oBox = $('<div class="box"><div>').appendTo($('#content'));
+				$('<img>').attr('src', './images/'+boxData.src).appendTo($oBox);
+
+				//刷新
+				waterFall();
+			})
+
+		}
+	})
+});
+</script>
+</head>
+<body>
+	<div class="content" id="content">
+		<div class="box">
+			<img src="./images/1.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/2.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/3.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/4.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/5.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/6.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/7.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/8.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/9.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/10.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/11.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/12.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/13.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/14.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/15.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/16.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/17.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/18.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/19.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/20.jpg" alt="">
+		</div>
+		<div class="box">
+			<img src="./images/21.jpg" alt="">
+		</div>
+	</div>
+</body>
+</html>

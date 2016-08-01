@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>date-picker</title>
+<style>
+.ui-date-picker{
+	width: 180px;
+	border: 1px solid #111;
+}
+.ui-date-picker .header{
+	
+	background-color: red;
+	text-align: center;
+	line-height: 1.5;
+}
+.ui-date-picker .caret-left{
+	display: block;
+	float: left;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent black transparent transparent;
+}
+
+.ui-date-picker .caret-right{
+	display: block;
+	float: right;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent transparent transparent black;
+}
+.ui-date-picker table{
+	width: 100%;
+}
+.ui-date-picker td,
+.ui-date-picker th{
+	text-align: center;
+}
+
+.ui-date-picker td:hover{
+	background-color: #ccc;
+}
+.ui-date-picker .pre-month,
+.ui-date-picker .next-month{
+	color: #ccc;
+}
+
+.ui-date-picker .current-date{
+	background-color: red;
+}
+</style>
+</head>
+<body>
+	<input type="text" id="date">
+	<!-- <div class="ui-date-picker">
+		<div class="header">
+			<span class="caret-left"></span>
+			<span class="year-month">2016年6月</span>
+			<span class="caret-right"></span>
+		</div>
+		<div class="panel">
+			<table>
+				<tr>
+					<th>日</th>
+					<th>一</th>
+					<th>二</th>
+					<th>三</th>
+					<th>四</th>
+					<th>五</th>
+					<th>六</th>
+				</tr>
+				<tr>
+					<td class="pre-month">29</td>
+					<td class="pre-month">30</td>
+					<td class="pre-month">31</td>
+					<td class="current-month">1</td>
+					<td class="current-month">2</td>
+					<td class="current-month">3</td>
+					<td class="current-month">4</td>
+				</tr>
+				<tr>
+					<td class="current-month">5</td>
+					<td class="current-month current-day">6</td>
+					<td class="current-month">1</td>
+					<td class="current-month">1</td>
+					<td class="current-month">1</td>
+					<td class="current-month">1</td>
+					<td class="current-month">1</td>
+				</tr>
+				<tr>
+					<td class="current-month">1</td>
+					<td class="current-month">2</td>
+					<td class="current-month">3</td>
+					<td class="current-month">4</td>
+					<td class="current-month">5</td>
+					<td class="current-month">6</td>
+					<td class="current-month">7</td>
+				</tr>
+				<tr>
+					<td class="current-month">1</td>
+					<td class="current-month">2</td>
+					<td class="current-month">3</td>
+					<td class="next-month">4</td>
+					<td class="next-month">5</td>
+					<td class="next-month">6</td>
+					<td class="next-month">7</td>
+				</tr>
+			</table>
+		</div>
+	</div> -->
+<script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+<script src="http://cdn.bootcss.com/handlebars.js/4.0.5/handlebars.js"></script>
+<script id="tpl-date-picker" type="text/x-handlebars-template">
+	<div class="ui-date-picker">
+		<div class="header">
+			<span class="caret-left"></span>
+			<span class="year-month">{{watchDateYear}}年{{watchDateMonth}}月</span>
+			<span class="caret-right"></span>
+		</div>
+		<div class="panel">
+			<table>
+				<thead>
+					<tr>
+						<th>日</th>
+						<th>一</th>
+						<th>二</th>
+						<th>三</th>
+						<th>四</th>
+						<th>五</th>
+						<th>六</th>
+					</tr>	
+				</thead>
+				<tbody>
+						
+				</tbody>
+				
+			</table>
+		</div>
+	</div>
+</script>
+<script id="tpl-date-picker-content" type="text/x-handlebars-template">
+	{{#each dateArr}}
+	<tr>
+		{{#each this}}
+		<td class="{{this.type}}-month{{#if this.isCurrent}} current-date{{/if}}" data-date="{{this.date}}">{{this.day}}</td>
+		{{/each}}
+	</tr>
+	{{/each}}
+</script>
+<script>
+function DatePicker($target){
+	this.$target = $target;
+	this.init();
+	this.render();
+	this.setDate();
+	this.bind();
+}
+
+DatePicker.prototype = {
+	init: function() {	
+		var source   = $("#tpl-date-picker").html();
+		var contentSource = $("#tpl-date-picker-content").html();
+		this.template = Handlebars.compile(source);
+		this.contentTemplate = Handlebars.compile(contentSource);
+		this.watchDate = new Date(); //查看日期
+		this.date = new Date(); //选中日期
+
+	},
+	render: function() {
+
+		
+		var context = {
+			watchDateYear: this.watchDate.getFullYear(),
+			watchDateMonth: this.watchDate.getMonth()+1,//返回月份（0表示1月，11表示12月）		
+		};
+
+		var	html = this.template(context);
+		html = $.trim(html);//去掉第一行的空格，jquery要求第一个字符为'<',通过模板生成的字符串第一行为空格
+		this.$datePicker = $(html);
+		this.$target.after(this.$datePicker);
+	},
+	setDate: function () {
+		var firstDate = this.getFirstDate();
+		var lastDate = this.getLastDate();
+
+		//上个月的天数
+		var preMonthDays = firstDate.getDay(); //getDay返回星期几，星期日为0，星期一为1，以此类推
+		//这个月的天数
+		var currentMonthDays = lastDate.getDate() - firstDate.getDate() + 1;
+		//下个月的天数
+		var nextMonthDays = 7-lastDate.getDay() - 1;
+		var dateArr = [];                                                                                                        
+		for (var i=preMonthDays; i>0; i--){
+			var d = new Date(firstDate.getTime() - i*24*60*60*1000);
+			dateArr.push({date:this.getYYMMDD(d),day: d.getDate(), type: "pre"});
+		}
+
+		for (var j= 0; j< currentMonthDays; j++){
+			var d = new Date(firstDate.getTime() + j*24*60*60*1000);
+			if(this.getYYMMDD(d)==this.getYYMMDD(this.date)){
+				dateArr.push({date:this.getYYMMDD(d),day: d.getDate(), type: "current", isCurrent: true})	
+			}else{
+				dateArr.push({date:this.getYYMMDD(d),day: d.getDate(), type: "current"})	
+			}
+			
+		}
+
+		for (var k=1;k<nextMonthDays+1;k++){
+			var d = new Date( lastDate.getTime() + k*24*60*60*1000);
+			dateArr.push({date:this.getYYMMDD(d),day: d.getDate(), type: "next"});
+		}
+		var dateArrT = [];
+
+
+		//变成二维数组，方便模板解析
+		for (var x = 0; x<Math.floor(dateArr.length/7); x++){
+			dateArrT[x] = dateArr.slice(x*7, x*7+7);
+		}
+
+		this.$datePicker.find('.year-month').text(this.watchDate.getFullYear()+'年'+(this.watchDate.getMonth()+1)+'月');
+
+		var context = {
+			dateArr: dateArrT
+		}
+
+		var html = this.contentTemplate(context);
+		html = $.trim(html);
+		this.$datePicker.find('tbody').html(html);
+
+	},
+	bind: function() {
+		var self = this;
+		self.$datePicker.find('.caret-left').click(function () {
+			self.watchDate = self.getPreMonth(self.watchDate);
+			self.setDate();
+		})
+
+		self.$datePicker.find('.caret-right').click(function () {
+			self.watchDate = self.getNextMonth(self.watchDate);
+			self.setDate();
+		})
+
+
+		//运用事件的委托，因为dom不断在改变
+		self.$datePicker.on('click', '.current-month', function () {
+			var date = $(this).attr('data-date');
+			self.date = new Date(date)
+			self.$target.val(date);
+			self.setDate();
+			self.$datePicker.hide();
+
+		})
+
+
+		self.$target.on('click', function(e){
+          e.stopPropagation();
+          self.$datePicker.show();
+        });
+
+        //下面设置点击页面其他部分隐藏 datepicker
+        this.$datePicker.on('click', function(e){
+        	//阻止冒泡，不然会触发window.click
+			e.stopPropagation();
+		});
+		$(window).on('click', function(e){
+			self.$datePicker.hide();
+		})
+	},
+	//获取所在月份的第一天
+	getFirstDate: function () {
+		var year = this.watchDate.getFullYear(),
+			month = this.watchDate.getMonth();
+		return new Date(year, month, 1);
+	},
+	//获取所在月份的最后一天,这里我们获取到下个月的第一天，然后-24小时就是这个月的最后一天
+	getLastDate: function () {
+		var year = this.watchDate.getFullYear(),
+			month = this.watchDate.getMonth();
+		month +=1; //月份加一
+
+		//如果大于了十二月，则月份为1一月份，而年份要加一
+		if (month>11){
+			month = 0;
+			year +=1;
+		}
+		var newDate = new Date(year, month, 1)
+		return  new Date(newDate - 24 * 60 * 60 *1000);
+	},
+	getYYMMDD: function (date) {
+		var year = date.getFullYear(),
+			month = date.getMonth()+1,
+			day = date.getDate();
+		return [year, month, day].join('/');
+	},
+	getPreMonth: function (date) {
+		var year = this.watchDate.getFullYear(),
+			month = this.watchDate.getMonth();
+		month -= 1;
+		if(month<0){
+			month = 11;
+			year -= 1;
+		}
+		return new Date(year, month, 1);
+	},
+	getNextMonth: function (date) {
+		var year = this.watchDate.getFullYear(),
+			month = this.watchDate.getMonth();
+		month += 1;
+		if(month>11){
+			month = 0;
+			year += 1;
+		}
+		return new Date(year, month, 1);
+	}
+}
+
+
+new DatePicker($("#date"));
+</script>
+</body>
+</html>

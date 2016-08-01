@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var num = prompt("输入一个2进制数");
+        // var str = num+ '';
+        // var num10 = 0;
+        // for (var i=-1;i >= -str.length; i--){
+        //     var n = Math.pow(2,-i-1) * parseInt(str.slice(i));
+        //     console.log(typeof n, n);
+
+        //     num10 +=  Math.pow(2,-i-1) * parseInt(str.slice(i));
+        // }
+       
+        // console.info(num10);
+        var num10 = 0;
+        var num2 = num+"";
+        for (var i=num2.length-1; i>=0; i--){
+            var n = num2.length-1 - i ;//指数
+            num10 += Math.pow(2, n) * parseInt( num2[i] );
+        }
+        console.log(num10);
+    </script>
+</body>
+</html>

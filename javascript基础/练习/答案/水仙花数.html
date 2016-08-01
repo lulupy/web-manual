@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		// for (var i = 100; i < 1000; ++i) {
+		// 	var num1 = parseInt(i / 100) % 10;
+		// 	var num2 = parseInt(i / 10) % 10;
+		// 	var num3 = i % 10;
+		// 	if (num1 * num1 * num1 + num2 * num2 * num2 + num3 * num3 * num3 == i) {
+		// 		console.info(i);
+		// 	}
+		// }
+
+		for (var i = 1; i < 10; ++i) {
+			for (var j = 0; j < 10; ++j) {
+				for (var k = 0; k < 10; ++k) {
+					var num = i * 100 + j * 10 + k;
+					if (i * i * i + j * j * j + k * k * k == num) {
+						console.info(num);
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>

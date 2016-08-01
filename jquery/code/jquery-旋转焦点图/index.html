@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>旋转焦点图</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+.container{
+	width: 800px;
+	height: 500px;
+	margin: 30px auto;
+	border: 1px solid #111;
+	position: relative;
+}
+
+
+
+.container .buttonBox button:nth-child(1){
+	position: absolute;
+	height: 20px;
+	left: 20px;
+	top: 50%;
+	margin-top: -10px;
+}
+
+.container .buttonBox button:nth-child(2){
+	position: absolute;
+	height: 20px;
+	right: 20px;
+	top: 50%;
+	margin-top: -10px;
+}
+
+.container .buttonBox button:nth-child(3){
+	position: absolute;
+	height: 20px;
+	left: 0px;
+	top: -20px
+}
+
+
+.container .imgBox .imgWrap{
+	position: relative;
+	width: 150px;
+	height: 200px;
+	float: left;
+	margin-left: 10px;
+	transform-origin: 50% 150%;
+	overflow: hidden;
+}
+
+.container .imgBox .imgWrap:nth-child(1){
+	transform: rotate(-15deg);
+}
+
+.container .imgBox .imgWrap:nth-child(2){
+	transform: rotate(0deg);
+}
+.container .imgBox .imgWrap:nth-child(3){
+	transform: rotate(15deg);
+}
+
+.container .imgBox .imgWrap:nth-child(4){
+	transform: rotate(30deg);
+}
+
+
+.container .imgBox .imgWrap img{
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	transform-origin: 0 200%;
+	transition: all 1s;
+
+}
+
+.container .imgBox .imgWrap:nth-child(2) img{
+	transition-delay: 0.5s;
+}
+.container .imgBox .imgWrap:nth-child(3) img{
+	transition-delay: 1s;
+}
+
+.container .imgBox .imgWrap:nth-child(4) img{
+	transition-delay: 1.5s;
+}
+
+/*.container .imgBox .imgWrap img:nth-child(2){
+	transform: rotate(45deg);
+}
+
+
+.container.turnLeft .imgBox .imgWrap img:nth-child(1){
+	transform: rotate(-45deg);
+}
+
+
+.container.turnLeft .imgBox .imgWrap img:nth-child(2){
+	transform: rotate(0deg);
+}
+
+.container.turnRight .imgBox .imgWrap img:nth-child(1){
+	transform: rotate(45deg);
+}
+
+
+.container.turnRight .imgBox .imgWrap img:nth-child(2){
+	transform: rotate(0deg);
+}
+*/
+
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="buttonBox">
+
+			<button class="buttonLeft">&lt;</button>
+			<button class="buttonRight">&gt;</button>
+		</div>
+		<div class="imgBox">
+			<div class="imgWrap">
+				<img src="images/0.jpg" alt="">
+			</div>
+			<div class="imgWrap">
+				<img src="images/1.jpg" alt="">
+			</div>
+			<div class="imgWrap">
+				<img src="images/2.jpg" alt="">
+			</div>
+			<div class="imgWrap">
+				<img src="images/3.jpg" alt="">
+			</div>
+		</div>
+		<h2></h2>
+	</div>
+<script src="http://cdn.bootcss.com/jquery/2.2.2/jquery.js"></script>
+<script>
+(function($) {
+	var $buttonLeft = $('.buttonLeft');
+	var $buttonRight = $('.buttonRight');
+	var $buttonPlay = $('.buttonPlay');
+	var $imgWraps = $('.imgWrap');
+
+	var images = [
+		['images/4.jpg', 'images/5.jpg', 'images/6.jpg', 'images/7.jpg'],
+		['images/8.jpg', 'images/9.jpg', 'images/10.jpg', 'images/11.jpg'],
+		['images/12.jpg', 'images/13.jpg', 'images/14.jpg', 'images/15.jpg'],
+	];
+	var index = 0;
+
+	//将图片路径转成jquery对象
+	for (var i=0;i<images.length;i++ ){
+		var imagesItem = images[i];
+		var $images = [];
+		for (var j=0;j<imagesItem.length;j++){
+			var $image = $('<img src="'+imagesItem[j]+'">');
+			$images.push($image);
+		}
+		images[i] = $images;
+	}
+
+
+
+	$buttonLeft.on('click', function turnLeft(e) {
+		turn(1);
+	});
+
+	$buttonRight.on('click', function turnRight(e) {
+		turn(-1);
+	});
+
+	function turn(direcition) {
+
+		var degree = 45;
+		var d= direcition; //1 向左 -1向右
+		console.log(index);
+		if(d===1){
+			if(index===images.length-1)return;
+			index += 1;
+		}else{
+			if(index===0)return;
+			index -= 1;
+		}
+
+
+		$imgWraps.each(function (i) {
+			var $imgWrap = $(this);
+			var $firstImg = $imgWrap.find('img');
+			var $image = images[index][i];
+			$image.css({transform: 'rotate('+d*degree+'deg)'}).appendTo($imgWrap);
+
+
+			//之前插入了image到dom中，页面会重绘，这样动画不会起效果
+			setTimeout(function () {
+				$image.css({transform: 'rotate(0deg)'});
+				$firstImg.css({transform: 'rotate('+(1-d)*degree+'deg)'});
+			},1);
+
+			$firstImg.on('transitionend', function () {
+				console.log($firstImg.attr('src'));
+				$firstImg.remove();
+			})
+		})
+		
+	}
+
+})(jQuery);
+</script>
+</body>
+</html>
