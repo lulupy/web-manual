@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
-<body ng-app="app">
 
-<div ng-controller="Ctrl">
-    <p>价格：<input type="text" ng-model="iphone.money"></p>
-    <p>个数：<input type="text" ng-model="iphone.num"></p>
-    <p>费用:　　<span>{{iphone.money * iphone.num}}</span></p>
-</div>
-<script src="angular.js"></script>
-<script>
-var app = angular.module('app', []);
-app.controller('Ctrl', function($scope){
-    $scope.iphone = {
-        money: 5,
-        num: 1
-    }
-});
-</script>
+<body ng-app="app">
+    <div ng-controller="Ctrl">
+        <p>价格：
+            <input type="text" ng-model="iphone.money">
+        </p>
+        <p>个数：
+            <input type="text" ng-model="iphone.num">
+        </p>
+        <p>费用:　　<span>{{iphone.money * iphone.num}}</span></p>
+    </div>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+    app.controller('Ctrl', function($scope) {
+        $scope.iphone = {
+            money: 5,
+            num: 1
+        }
+        var sum = function() {
+            return $scope.iphone.money * $scope.iphone.num
+        }
+        $scope.$watch('iphone', function() {
+            console.log('iphone change');
+        })
+    });
+    </script>
 </body>
+
 </html>

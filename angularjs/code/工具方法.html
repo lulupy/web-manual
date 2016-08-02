@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<script src="angular.js"></script>
+<script>
+// function foo(){
+//     console.log(this);
+// }
+
+// var foo = angular.bind({}, foo)
+// foo();
+// 
+function foo(arg1, arg2){
+    console.log(this, arg1, arg2);
+}
+
+var fn = angular.bind({}, foo, 1, 2)
+fn();
+</script>
+</body>
+</html>
