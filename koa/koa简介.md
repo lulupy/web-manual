@@ -22,3 +22,10 @@ app.listen(3000);
 上面代码中，变量app就是一个Koa应用。它监听3000端口，返回一个内容为Hello World的网页。
 app.use方法用于向middleware数组添加Generator函数。
 listen方法指定监听端口，并启动当前应用。它实际上等同于下面的代码。
+
+[Generator 函数的含义与用法](http://www.ruanyifeng.com/blog/2015/04/generator.html)
+
+[Thunk 函数的含义和用法](http://www.ruanyifeng.com/blog/2015/05/thunk.html)
+
+[co 函数库的含义和用法](http://www.ruanyifeng.com/blog/2015/05/co.html)
+

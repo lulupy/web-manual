@@ -83,5 +83,69 @@ this.## request.charset
 
 
 
+## 如何获取query参数
+
+```js
+var router = require('koa-router')();
+
+router.get('/', function *(next) {
+  console.log(this.request.query)
+  console.log(this.query)
+
+  yield this.render('index', {
+    title: 'Hello World Koa!'
+  });
+});
+
+module.exports = router;
+```
+
+## 获取params参数
+
+```js
+var router = require('koa-router')();
+
+router.get('/:id', function *(next) {
+  console.log(this.params);
+  console.log(this.request.params);
+  this.body = 'this a users response!';
+});
+
+module.exports = router;
+```
+
+首先肯定一点，this.params是可以取到params的
+但是注意的是
+```js
+this.request.params != this.params
+```
+这说明params不是request上的方法
+
+
+# co-body
+Parse request bodies with co
+
+安装:
+```shell
+$ npm install co-body
+```
+
+```js
+var parse = require('co-body');
+
+// application/json
+var body = yield parse.json(this);
+
+// application/x-www-form-urlencoded
+var body = yield parse.form(this);
+
+// text/plain
+var body = yield parse.text(this);
+
+// either
+var body = yield parse(this);
+
+
+```
 
 
