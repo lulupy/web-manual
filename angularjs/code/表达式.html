@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body ng-app="myApp">
+<!-- <div ng-controller="MyController">
+    <input ng-model="expr" type="text" placeholder="Enter an expression" />
+    <h2>{{ parsedValue }}</h2>
+</div> -->
+<script src="angular.js"></script>
+<script>
+angular.module("myApp", [])
+    .controller('MyController',
+        function($scope, $parse) {
+            $scope.name = 'lulu';
+            $scope.$watch('expr', function(newVal, oldVal, scope) {
+                if (newVal !== oldVal) {
+                    // 用该表达式设置parseFun
+                    var parseFun = $parse(newVal);
+                    // 获取经过解析后表达式的值
+                    $scope.parsedValue = parseFun(scope);
+                }
+            });
+        })
+</script>
+<div ng-controller="MyController2">
+    <div id="emailEditor">
+        <input ng-model="to" type="email" placeholder="Recipient" />
+        <textarea ng-model="emailBody"></textarea>
+    </div>
+    <div id="emailPreview">
+        <pre>__ previewText __</pre>
+    </div>
+</div>
+<script>
+angular.module('emailParser', [])
+    .config(['$interpolateProvider', function($interpolateProvider) {
+        $interpolateProvider.startSymbol('__');
+        $interpolateProvider.endSymbol('__');
+    }])
+    .factory('EmailParser', ['$interpolate', function($interpolate) {
+        // 处理解析的服务
+        return {
+            parse: function(text, context) {
+                var template = $interpolate(text);
+                return template(context);
+            }
+        };
+    }]);
+
+angular.module("myApp", ['emailParser']).controller('MyController2', ['$scope', 'EmailParser',
+    function($scope, EmailParser) {
+        // 设置监听
+        $scope.to = '492035790@qq.com'
+        $scope.emailBody = '__to__';
+        $scope.$watch('emailBody', function(body) {
+            if (body) {
+                $scope.previewText = EmailParser.parse(body, {
+                    to: $scope.to
+                });
+            }
+        });
+    }
+]);
+</script>
+</body>
+
+</html>

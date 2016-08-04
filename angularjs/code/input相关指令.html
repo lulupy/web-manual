@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-app="app">
+    <div ng-controller="Ctrl">
+        <input type="button" value="{{text}}" ng-disabled="isDisabled">
+        <input type="text" ng-value="text2" ng-readonly="true">
+        <p>{{text2}}</p>
+    </div>
+<script src="angular.js"></script>
+<script>
+var app = angular.module('app', []);
+
+app.controller('Ctrl', function($scope, $interval){
+    //使用$interval服务
+    //setInterval不会触发视图的更新
+    $scope.iNow = 5;
+    $scope.text2 = 10;
+    $scope.text = $scope.iNow + '秒';
+    $scope.isDisabled = true;
+    var timer = $interval(function(){
+        $scope.iNow--;
+        $scope.text = $scope.iNow + '秒';
+        if($scope.iNow==0){
+            $scope.isDisabled = false;
+            $interval.cancel(timer)
+        }
+    }, 1000)
+});
+</script>
+</body>
+</html>

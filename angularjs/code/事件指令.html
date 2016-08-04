@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    td,
+    th {
+        border: 1px double #111;
+    }
+    </style>
+</head>
+
+<body ng-app="app">
+    <div ng-copy="text=1">ppppppppp</div>
+    <input type="text" ng-paste="text=2" ng-cut="text=3">
+    <div>{{text}}</div>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+   
+    </script>
+</body>
+
+</html>

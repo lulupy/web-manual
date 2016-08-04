@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    td,
+    th {
+        border: 1px double #111;
+    }
+    </style>
+</head>
+
+<body ng-app="app">
+    <div ng-controller="Ctrl">
+        <table>
+            <tr>
+                <th ng-click="sortBy('name')">姓名</th>
+                <th ng-click="sortBy('score')">成绩</th>
+            </tr>
+            <tr ng-repeat="item in datalist">
+                <td>{{item.name}}</td>
+                <td>{{item.score}}</td>
+            </tr>
+        </table>
+        <div ng-repeat-start="item in datalist">{{item.name}}</div>
+        <p ng-repeat-end>{{item.score}}</p>
+    </div>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+    app.controller('Ctrl', function($scope, $filter) {
+        $scope.datalist = [{
+            name: '张三',
+            score: 100
+        }, {
+            name: '李四',
+            score: 99
+        }, {
+            name: '王二麻子',
+            score: 98
+        }]
+        $scope.sortBy = function(arg) {
+            //把开关加在函数对象上,name和score互不影响
+            //为了防止跟函数对象上其他的属性冲突,我们加上前缀
+            $scope.sortBy['prefix' + arg] = !$scope.sortBy['prefix' + arg]
+            var reverse = $scope.sortBy['prefix' + arg];
+            $scope.datalist = $filter('orderBy')($scope.datalist, arg, reverse);
+        }
+    });
+    </script>
+</body>
+
+</html>
