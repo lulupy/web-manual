@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body ng-app="app" ng-controller="MyController">
+    <form novalidate name="myForm">
+        
+        <div>
+            <label for="">用户名：</label>
+            <input type="email" name="username" required ng-model="model.username" ng-blur="errorMsg.change('username', myForm.username.$error)">
+            <span ng-repeat="item in errorMsg.username.msgList | filter:errorMsg.username.value">{{item.msg}}</span>
+        </div>
+    </form>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+    app.controller('MyController', function($scope) {
+        $scope.errorMsg = {
+            'username': {
+                value: 'default',
+                msgList: [{
+                    name: 'default',
+                    msg: '请输入用户名'
+                }, {
+                    name: 'email',
+                    msg: '请输入邮箱'
+                }, {
+                    name: 'required',
+                    msg: '用户名不能为空'
+                }, {
+                    name: 'pass',
+                    msg: '验证通过'
+                }, ]
+            },
+            change: function(key, $error) {
+                var item = this[key];
+                for (var k in $error) {
+                    if ($error[k]) {
+                        item.value = k;
+                        return
+                    }
+                }
+                item.value = 'pass';
+
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>
