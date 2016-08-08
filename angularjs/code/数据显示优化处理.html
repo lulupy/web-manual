@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
+
 <body ng-app="app">
     <div ng-controller="Ctrl">
         <p>{{text}}</p>
         <div ng-bind-template="{{text}}, {{text}}"></div>
-        <div ng-bind-html="{{text}}, {{text}}"></div>
+        <div ng-bind-html="text"></div>
+        <div ng-non-bindable>
+            {{text}}
+        </div>
     </div>
-<script src="angular.js"></script>
-<script src="angular-sanitize.js"></script>
-<script>
-var app = angular.module('app', ['ngSanitize']);
+    <script src="angular.js"></script>
+    <script src="angular-sanitize.js"></script>
+    <script>
+    var app = angular.module('app', ['ngSanitize']);
 
-app.controller('Ctrl', function($scope){
-    // alert(111);
-    $scope.text = '<h1>hello</h1>';
-});
-</script>
+    app.controller('Ctrl', function($scope) {
+        // alert(111);
+        $scope.text = '<h1>hello</h1>';
+    });
+    </script>
 </body>
+
 </html>

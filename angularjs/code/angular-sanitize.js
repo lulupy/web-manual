@@ -735,4 +735,4 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 }]);
 
 
-})(window, window.angular);angular-sanitize.js
+})(window, window.angular);
