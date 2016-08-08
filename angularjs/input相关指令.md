@@ -33,5 +33,6 @@ app.controller('ctrl', function($scope, $inerval){
 - ng-readonly
 - ng-checked
 - ng-value
+- ng-selected
 
 
