@@ -15,7 +15,7 @@ Cookie是服务器保存在浏览器的一小段文本信息，每个Cookie的�
 
 无论使用何种服务端技术，只要发送回的HTTP响应中包含如下形式的头，则视为服务器要求设置一个cookie：
 ```
-Set-cookie:name=name;expires=date;path=path;domain=domai
+Set-Cookie: value[; expires=date][; domain=domain][; path=path][; secure]
 ```
 支持cookie的浏览器都会对此作出反应，即创建cookie文件并保存（也可能是内存cookie），用户以后在每次发出请求时，浏览器都要判断当前所有的cookie中有没有没失效（根据expires属性判断）并且匹配了path属性的cookie信息，如果有的话，会以下面的形式加入到请求头中发回服务端：
 ```
