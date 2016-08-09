@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body ng-app="app">
+    <div ng-controller="Ctrl">
+        <div ng-repeat="outerData in datalist" ng-init="outerIndex=$index">
+            <div ng-repeat="innerData in outerData" ng-init="innerIndex=$index">
+                {{innerData+':'+outerIndex+innerIndex}}
+            </div>
+        </div>
+    </div>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+    app.controller('Ctrl', function($scope, $filter) {
+        $scope.datalist = [
+            ['a', 'b', 'c'],
+            ['aa', 'bb', 'cc']
+        ];
+    });
+    </script>
+</body>
+
+</html>

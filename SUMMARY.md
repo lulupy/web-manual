@@ -11,6 +11,9 @@
         * [事件指令](angularjs/事件指令.md)
         * [input相关指令](angularjs/input相关指令.md)
         * [数据显示优化处理](angularjs/数据显示优化处理.md)
+        * [标签指令](angularjs/标签指令.md)
+        * [表单验证](angularjs/表单验证.md)
+        * [自定义指令](angularjs/自定义指令.md)
         * [样式相关](angularjs/样式相关.md) 
     * [服务](angularjs/服务.md)-->
 * [koa](koa/README.md)

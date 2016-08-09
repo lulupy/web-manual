@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body ng-app="app">
+    <div ng-controller="MyController as ctrl">
+        <div ng-click="ctrl.show()">{{ctrl.name}}</div>
+
+    </div>
+    <script src="angular.js"></script>
+    <script>
+    function MyController($scope){
+        this.name = 'hello world';
+    }
+
+    MyController.prototype.show = function() {
+        alert(11);
+    };
+
+
+    var app = angular.module('app', []);
+    app.controller('MyController', MyController);
+    </script>
+</body>
+
+</html>
