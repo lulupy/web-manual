@@ -77,7 +77,21 @@ myApp.config(function($stateProvider){
 })
 ```
 
+在url中设置基本的参数
+```js
+$stateProvider
+ .state('inbox', {
+ url: '/inbox/:inboxId',
+ template: '<h1>Welcome to your inbox</h1>',
+ controller: function($scope, $stateParams) {
+ $scope.inboxId = $stateParams.inboxId;
+ }
+}); 
+```
+
 ### 嵌套路由
+ 
+
 
 
 
