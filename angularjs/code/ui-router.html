@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.css">
 </head>
 
 <body ng-app="myApp">
-    <ul>
+    <ul class="nav nav-tabs">
         <li><a ui-sref="hello">Hello</a></li>
         <li><a ui-sref="about">About</a></li>
         <li><a ui-sref="people">People</a></li>
@@ -15,23 +16,32 @@
     <div ui-view></div>
     <script src='angular.js'></script>
     <script src="angular-ui-router.js"></script>
-<script type='text/ng-template' id='people.html'>
-    <ul>
-        <li ng-repeat="person in people">
-            <a ui-sref="people.person({personId: person.id})">{{person.name}}</a>
-        </li>
-    </ul>
-    <ui-view></ui-view>
-</script>
-<script type='text/ng-template' id='person.html'>
-    <h3>A person!</h3>
-    <div>Name: {{$ctrl.person.name}}</div>
-    <div>Id: {{$ctrl.person.id}}</div>
-    <div>Company: {{$ctrl.person.company}}</div>
-    <div>Email: {{$ctrl.person.email}}</div>
-    <div>Address: {{$ctrl.person.address}}</div>
-    <button ui-sref="people">Close</button>
-</script>
+    <script type='text/ng-template' id='people.html'>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul  class="nav nav-stacked">
+                        <li ng-repeat="person in people">
+                            <a ui-sref="people.person({personId: person.id})">{{person.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <ui-view></ui-view>
+                </div>
+            </div>
+        </div>
+        
+    </script>
+    <script type='text/ng-template' id='person.html'>
+        <h3>A person!</h3>
+        <div>Name: {{person.name}}</div>
+        <div>Id: {{person.id}}</div>
+        <div>Company: {{person.company}}</div>
+        <div>Email: {{person.email}}</div>
+        <div>Address: {{person.address}}</div>
+        <button ui-sref="people">Close</button>
+    </script>
     <script>
     var myApp = angular.module('myApp', ['ui.router']);
     myApp.config(function($stateProvider) {
@@ -83,9 +93,10 @@
                 function personMatchesParam(person) {
                     return person.id === id;
                 }
-                
-                return service.getAllPeople().then(function( people ) {
-                    return people.find( personMatchesParam )
+
+                return service.getAllPeople().then(function(people) {
+                    var person = people.filter(personMatchesParam);
+                    return person[0];
                 });
             }
         }

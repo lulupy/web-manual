@@ -19,6 +19,7 @@
     * [服务](angularjs/服务.md)
     * [依赖注入](angularjs/依赖注入.md)
     * [ui-router](angularjs/ui-router.md)
+    * [事件](angularjs/事件.md)
 * [koa](koa/README.md)
     * [koa初识](koa/koa初识.md)
         * [koa简介](koa/koa简介.md)
