@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body ng-app="myApp">
+    <ul>
+        <li><a ui-sref="hello">Hello</a></li>
+        <li><a ui-sref="about">About</a></li>
+        <li><a ui-sref="people">People</a></li>
+    </ul>
+    <div ui-view></div>
+    <script src='angular.js'></script>
+    <script src="angular-ui-router.js"></script>
+<script type='text/ng-template' id='people.html'>
+    <ul>
+        <li ng-repeat="person in people">
+            <a ui-sref="people.person({personId: person.id})">{{person.name}}</a>
+        </li>
+    </ul>
+    <ui-view></ui-view>
+</script>
+<script type='text/ng-template' id='person.html'>
+    <h3>A person!</h3>
+    <div>Name: {{$ctrl.person.name}}</div>
+    <div>Id: {{$ctrl.person.id}}</div>
+    <div>Company: {{$ctrl.person.company}}</div>
+    <div>Email: {{$ctrl.person.email}}</div>
+    <div>Address: {{$ctrl.person.address}}</div>
+    <button ui-sref="people">Close</button>
+</script>
+    <script>
+    var myApp = angular.module('myApp', ['ui.router']);
+    myApp.config(function($stateProvider) {
+        $stateProvider
+            .state({
+                name: 'hello',
+                url: '/hello',
+                template: '<h3>hello world!</h3>'
+            })
+            .state({
+                name: 'about',
+                url: '/about',
+                template: '<h3>Its the UI-Router hello world app!</h3>'
+            })
+            .state({
+                name: 'people',
+                url: '/people',
+                templateUrl: 'people.html',
+                controller: function($scope, PeopleService) {
+                    PeopleService.getAllPeople().then(function(data) {
+                        $scope.people = data;
+                    });
+                }
+            })
+            .state({
+                name: 'people.person',
+                url: '/person/:personId',
+                templateUrl: 'person.html',
+                controller: function($scope, PeopleService, $stateParams) {
+                    var personId = $stateParams.personId;
+                    PeopleService.getPerson(personId).then(function(data) {
+                        $scope.person = data;
+                    })
+                }
+            })
+    });
+
+    myApp.factory('PeopleService', function($http) {
+        var service = {
+            getAllPeople: function() {
+                return $http.get('data/people.json', {
+                    cache: true
+                }).then(function(resp) {
+                    return resp.data;
+                });
+            },
+
+            getPerson: function(id) {
+                function personMatchesParam(person) {
+                    return person.id === id;
+                }
+                
+                return service.getAllPeople().then(function( people ) {
+                    return people.find( personMatchesParam )
+                });
+            }
+        }
+
+        return service;
+    })
+    </script>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 # Table of content
 
 * [前言](前言.md)
- <!-- [angularjs](angularjs/READMME.md)
+* [angularjs](angularjs/READMME.md)
     * [简介](angularjs/简介.md)
     * [作用域](angularjs/作用域.md)
     * [工具方法](angularjs/工具方法.md)
@@ -9,13 +9,16 @@
     * [指令](angularjs/指令.md)
         * [ng-repeat](angularjs/ng-repeat.md)
         * [事件指令](angularjs/事件指令.md)
+        * [样式相关](angularjs/样式相关.md)
         * [input相关指令](angularjs/input相关指令.md)
         * [数据显示优化处理](angularjs/数据显示优化处理.md)
         * [标签指令](angularjs/标签指令.md)
         * [表单验证](angularjs/表单验证.md)
         * [自定义指令](angularjs/自定义指令.md)
-        * [样式相关](angularjs/样式相关.md) 
-    * [服务](angularjs/服务.md)-->
+         
+    * [服务](angularjs/服务.md)
+    * [依赖注入](angularjs/依赖注入.md)
+    * [ui-router](angularjs/ui-router.md)
 * [koa](koa/README.md)
     * [koa初识](koa/koa初识.md)
         * [koa简介](koa/koa简介.md)

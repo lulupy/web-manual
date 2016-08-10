@@ -169,6 +169,9 @@ db.test_collection.update({x: 100}, {x:99}, true)
 传入第四个参数,表示更新多条数据, 注意, 更新多条数据只能使用 $set 为了防止误操作
 
 
+```
+db.user.update({x: 100}, {$set: {x:99}}, false, true)
+```
 
 ### 数据删除 remove
 与查询类似, 接收另一个参数,格式为json
