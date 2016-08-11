@@ -7,6 +7,10 @@ ul {
     list-style: none;
 }
 
+a {
+    text-decoration: none;
+}
+
 body {
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.4em;
@@ -36,6 +40,39 @@ body {
     box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
 }
 
+.main {
+    position: relative;
+}
+
+.main .toggle-all {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    outline: 0;
+    border: 0;
+    position: absolute;
+    top: -55px;
+    left: -12px;
+    width: 60px;
+    height: 34px;
+    text-align: center;
+    border: none;
+    -webkit-rtl-ordering: logical;
+}
+
+.main .toggle-all:before {
+    content: "❯";
+    font-size: 22px;
+    color: rgb(230, 230, 230);
+    padding: 10px 27px;
+}
+
+.main .toggle-all:checked:before {
+    color: #737373;
+}
+
 .todo-list li {
     position: relative;
     border-bottom: 1px solid #ededed;
@@ -56,17 +93,13 @@ body {
     bottom: 0;
     text-align: center;
 }
-.todo-list .toggle:after{
-    content:' ';
-    display: block;
-    height: 40px;
-    background: url('http://pic002.cnblogs.com/images/2012/421791/2012082416290093.png');
+
+.todo-list .toggle:after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
 }
 
-.todo-list .toggle:checked:after{
-    content:' ';
-
-    background:  url('http://pic002.cnblogs.com/images/2012/421791/2012082416292524.png');
+.todo-list .toggle:checked:after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
 }
 
 .todo-list label {
@@ -76,12 +109,17 @@ body {
     padding: 15px 60px 15px 15px;
 }
 
+.todo-list .completed label {
+    color: #d9d9d9;
+    text-decoration: line-through;
+}
+
 .todo-list .destory {
+    display: none;
     -webkit-appearance: none;
     appearance: none;
     outline: 0;
     border: 0;
-    display: block;
     position: absolute;
     width: 40px;
     height: 40px;
@@ -92,4 +130,90 @@ body {
     margin: auto 0;
     font-size: 30px;
     color: #cc9a9a;
+    transition: color 0.2s ease-out;
+}
+
+.todo-list .destory:hover {
+    color: #af5b5e;
+}
+
+.todo-list li:hover .destory {
+    display: block;
+}
+
+.todo-list li .edit {
+    display: none;
+    box-sizing: border-box;
+    font-size: 24px;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: 1.4em;
+    border: 1px solid #111;
+    box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.todo-list li.editing .edit {
+    display: block;
+    width: 506px;
+    padding: 13px 17px 12px 17px;
+    margin: 0 0 0 43px;
+}
+
+.todo-list li.editing .view{
+    display: none;
+}
+
+.footer {
+    color: #777;
+    padding: 10px 15px;
+    height: 20px;
+    text-align: center;
+    border-top: 1px solid #e6e6e6;
+}
+
+.footer .filters {
+    position: absolute;
+    right: 0;
+    left: 0;
+    display: block;
+    text-align: center;
+}
+
+.footer li {
+    display: inline;
+}
+
+.filters li a {
+    color: inherit;
+    margin: 3px;
+    padding: 3px 7px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+.filters li a.selected {
+    border-color: rgba(175, 47, 47, 0.2);
+}
+
+.footer .todo-count {
+    float: left;
+}
+
+.footer .clear-completed {
+    float: right;
+    position: relative;
+    line-height: 20px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    outline: 0;
+    border: 0;
+    color: inherit;
+    font-size: 100%;
+    z-index: 100;
+}
+
+.footer .clear-completed:hover {
+    text-decoration: underline;
 }
