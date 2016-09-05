@@ -56,7 +56,6 @@ angular.module('todoApp')
         $scope.editTodo = function(todo){
             $scope.editedTodo = todo;
             $scope.originTodo = angular.extend({}, todo);
-            console.log($scope.originTodo)
         }
 
         $scope.saveEdits = function(){

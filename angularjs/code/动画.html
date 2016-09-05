@@ -5,15 +5,82 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <style>
+    .item {}
+    
+    .item.ng-enter {
+        -webkit-transition: 1s all;
+        transition: 1s all;
+        -webkit-transform: translateX(-20px);
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    
+    .item.ng-enter-active {
+        opacity: 1;
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+    }
+    
+    .item.ng-leave {
+        -webkit-transition: 2s all;
+        transition: 2s all;
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+        opacity: 1;
+    }
+    
+    .item.ng-leave-active {
+        opacity: 0;
+        -webkit-transform: translateX(30px);
+        transform: translateX(30px);
+    }
+    
+    .item.ng-move {
+        -webkit-transition: 10s all;
+        transition: 10s all;
+        opacity: 1;
+    }
+    
+    .item.ng-move-active {
+        opacity: 0;
+        color: red;
+    }
+    
+    .item.ng-enter-stagger {
+        -webkit-transition-delay: 2s;
+        transition-delay: 2s;
+        /* 防止意外CSS继承的保护措施 */
+        -webkit-transition-duration: 0;
+        transition-duration: 0;
+    }
+    </style>
+</head>
+
+<body ng-app="app" ng-controller="Ctrl">
+    <ul>
+        <li ng-repeat="item in datalist" class="item">
+            {{item}}
+        </li>
+    </ul>
+    <button ng-click="addData()">enter</button>
+    <button ng-click="removeData()">leave</button>
+    <button ng-click="moveData()">move</button>
+    <button ng-click="refresh()">refresh</button>
+    <style>
     .css-class-add {
-        transition: all linear 4s;
+        color: yellow;
+        transition: all linear 2s;
     }
     
     .css-class-remove {
-        transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+        transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
     }
     
-    .css-class,
+    .css-class {
+        font-size: 3em;
+        color: blue;
+    }
+    
     .css-class-add.css-class-add-active {
         color: red;
         font-size: 3em;
@@ -24,19 +91,47 @@
         color: black;
     }
     </style>
-</head>
-
-<body ng-app="app">
     <p>
         <input type="button" value="set" ng-click="myCssVar='css-class'">
         <input type="button" value="clear" ng-click="myCssVar=''">
         <br>
         <span ng-class="myCssVar">CSS-Animated Text</span>
     </p>
+    <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.3.18/angular.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.3.18/angular-animate.js"></script>
     <script>
-    angular.module('app', ['ngAnimate'])
+    angular
+        .module('app', ['ngAnimate'])
+        .controller('Ctrl', function($scope, $timeout) {
+            $scope.datalist = [
+                '111',
+                '2222',
+                '333'
+            ]
+
+            var data = 1;
+            $scope.addData = function() {
+                $scope.datalist.push(data++);
+            }
+            $scope.removeData = function() {
+                $scope.datalist.pop();
+            }
+
+            $scope.moveData = function() {
+                $scope.datalist.unshift($scope.datalist.pop())
+            }
+            $scope.refresh = function() {
+                var datalist = $scope.datalist;
+                $scope.datalist = [];
+                $timeout(function() {
+                    $scope.datalist = datalist;
+                }, 1000)
+
+
+
+            }
+        })
     </script>
 </body>
 
