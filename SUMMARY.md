@@ -14,12 +14,12 @@
         * [数据显示优化处理](angularjs/数据显示优化处理.md)
         * [标签指令](angularjs/标签指令.md)
         * [表单验证](angularjs/表单验证.md)
-        * [自定义指令](angularjs/自定义指令.md)
-         
+        * [自定义指令](angularjs/自定义指令.md)      
     * [服务](angularjs/服务.md)
     * [依赖注入](angularjs/依赖注入.md)
     * [ui-router](angularjs/ui-router.md)
     * [事件](angularjs/事件.md)
+    * [动画](angularjs/动画.md)
 * [koa](koa/README.md)
     * [koa初识](koa/koa初识.md)
         * [koa简介](koa/koa简介.md)
@@ -67,6 +67,10 @@
 
 
 * [其他](其他/README.md)
-    * [其他](其他/简历、笔试、面试.md)
+    * [简历、笔试、面试](其他/简历、笔试、面试.md)
+    * [简历](其他/简历.md)
+
+* [angular2]()
+    * [typescript](angular2/typescript.md)
 
 
