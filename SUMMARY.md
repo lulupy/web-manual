@@ -8,6 +8,7 @@
     * [流程控制语句](Javascript/流程控制语句.md)
     * [函数和作用域](Javascript/函数和作用域.md)
     * [面向对象编程](Javascript/面向对象编程.md)
+    * [this关键字](Javascript/this关键字.md)
     * [基本类型和引用类型](Javascript/基本类型和引用类型.md)
     * [数组](Javascript/数组.md)
     * [字符串](Javascript/字符串.md)
