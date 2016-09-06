@@ -12,6 +12,9 @@
     * [基本类型和引用类型](Javascript/基本类型和引用类型.md)
     * [数组](Javascript/数组.md)
     * [字符串](Javascript/字符串.md)
+    * [Math](Javascript/Math.md)
+    * [Date](Javascript/Date.md)
+    
 * [angularjs](angularjs/READMME.md)
     * [简介](angularjs/简介.md)
     * [作用域](angularjs/作用域.md)
