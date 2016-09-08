@@ -10,6 +10,7 @@
     * [面向对象编程](Javascript/面向对象编程.md)
     * [this关键字](Javascript/this关键字.md)
     * [字符串](Javascript/字符串.md)
+    * [定时器](Javascript/定时器.md)
     * [数组](Javascript/数组.md)
     * [Math](Javascript/Math.md)
     * [Date](Javascript/Date.md)
