@@ -1,107 +1,69 @@
 # Date
 
-Date对象是JavaScript提供的日期和时间的操作接口
-
-## Date对象有几个静态方法
-
-### Date.now()
-
-now方法返回当前距离1970年1月1日00:00:00的毫秒数
-Date.now(); // 1427974222853
-
-### Date.parse()
-
-parse方法用来解析日期字符串，返回距离1970年1月1日 00:00:00的毫秒数
-
-日期字符串的格式应该完全或者部分符合YYYY-MM-DDTHH:mm:ss.sssZ格式，Z表示时区，是可选的
-
-如果解析失败，返回NaN
-
-```js
-Date.parse("January 26, 2011 13:51:50")
-Date.parse("Mon, 25 Dec 1995 13:30:00 GMT")
-Date.parse("Mon, 25 Dec 1995 13:30:00 +0430")
-Date.parse("2011-10-10")
-Date.parse("2011-10-10T14:48:00")
-```
-
-
-
-## new Date()
-
-Date还可以当作构造函数使用。对它使用new命令，会返回一个Date对象的实例。如果不加参数，生成的就是代表当前时间的对象。
+创建 Date 实例用来处理日期和时间。Date 对象基于1970年1月1日（世界标准时间）起的毫秒数。
 
 ```js
 var today = new Date();
+var today = new Date(1453094034000); // by timestamp(accurate to the millimeter)
+var birthday = new Date('December 17, 1995 03:24:00');
+var birthday = new Date('1995-12-17 03:24:00');
+var birthday = new Date(1995, 11, 17);
+var birthday = new Date(1995, 11, 17, 3, 24, 0);
 ```
-
-作为构造函数时，Date对象可以接受多种格式的参数。
-
-1. new Date(milliseconds)
-
-Date对象接受从1970年1月1日00:00:00 UTC开始计算的毫秒数作为参数。这意味着如果将Unix时间戳（单位为秒）作为参数，必须将Unix时间戳乘以1000。
 
 ```js
-new Date(1378218728000)
-// Tue Sep 03 2013 22:32:08 GMT+0800 (CST)
-
-// 1970年1月2日的零时
-var Jan02_1970 = new Date(3600 * 24 * 1000);
-// Fri Jan 02 1970 08:00:00 GMT+0800 (CST)
-
-// 1969年12月31日的零时
-var Dec31_1969 = new Date(-3600 * 24 * 1000);
-// Wed Dec 31 1969 08:00:00 GMT+0800 (CST)
+new Date();
+new Date(value);
+new Date(dateString);
+new Date(year, month[, day[, hour[, minutes[, seconds[, milliseconds]]]]]);
 ```
 
-2. new Date(datestring)
+- value
 
-Date对象还接受一个日期字符串作为参数，返回所对应的时间。
+代表自1970年1月1日00:00:00 (世界标准时间) 起经过的毫秒数。
 
+- dateString
+
+表示日期的字符串值。该字符串应该能被 Date.parse() 方法识别（符合 IETF-compliant RFC 2822 timestamps 或 version of ISO8601）。
+
+- year
+
+代表年份的整数值。为了避免2000年问题最好指定4位数的年份; 使用 1998, 而不要用 98.
+
+- month
+
+代表月份的整数值从0（1月）到11（12月）。
+- day
+
+代表一个月中的第几天的整数值，从1开始。
+
+- hour
+
+代表一天中的小时数的整数值 (24小时制)。
+
+- minute
+
+分钟数。
+
+- second
+
+秒数。
+
+- millisecond
+
+表示时间的毫秒部分的整数值。
+
+
+
+记住一种格式:
+
+YYYY-MM-DD HH:mm:ss
 ```js
-new Date('January 6, 2013');
-// Sun Jan 06 2013 00:00:00 GMT+0800 (CST)
-```
-
-3. new Date(year, month [, day, hours, minutes, seconds, ms]) 推荐使用
-
-Date对象还可以接受多个整数作为参数，依次表示年、月、日、小时、分钟、秒和毫秒。如果采用这种格式，最少需要提供两个参数（年和月），其他参数都是可选的，默认等于0。因为如果只使用“年”这一个参数，Date对象会将其解释为毫秒数。
-
-```js
-new Date(2013)
-// Thu Jan 01 1970 08:00:02 GMT+0800 (CST)
-```
-
-上面代码中，2013被解释为毫秒数，而不是年份。
-
-
-各个参数的取值范围如下。
-
-- year：四位年份，如果写成两位数，则加上1900
-- month：表示月份，0表示一月，11表示12月
-- date：表示日期，1到31
-- hour：表示小时，0到23
-- minute：表示分钟，0到59
-- second：表示秒钟，0到59
-- ms：表示毫秒，0到999
-
-注意，月份从0开始计算，但是，天数从1开始计算。另外，除了日期默认为1，小时、分钟、秒钟和毫秒默认都是0。
-
-```js
-new Date(2013, 0)
-// Tue Jan 01 2013 00:00:00 GMT+0800 (CST)
-
-new Date(2013, 0, 1)
-// Tue Jan 01 2013 00:00:00 GMT+0800 (CST)
-
-new Date(2013, 0, 1, 0)
-// Tue Jan 01 2013 00:00:00 GMT+0800 (CST)
-
-new Date(2013, 0, 1, 0, 0, 0, 0)
-// Tue Jan 01 2013 00:00:00 GMT+0800 (CST)
+var birthday = new Date('1995-12-17 03:24:00');
 ```
 
 
+## 常用方法
 
 ### get
 
