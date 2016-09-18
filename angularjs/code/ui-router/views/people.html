@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul  class="nav nav-stacked">
+                <li ng-repeat="person in people">
+                    <a ui-sref="people.person({personId: person.id})">{{person.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <ui-view></ui-view>
+        </div>
+    </div>
+</div>
