@@ -23,8 +23,9 @@
     * [操作元素属性的多种方式](DOM/操作元素属性的多种方式.md)
     * [元素的操作](DOM/元素的操作.md)
     * [getElementsByClassName](DOM/getElementsByClassName.md)
-    
-* [angularjs](angularjs/READMME.md)
+    * [表单操作](DOM/表单操作.md)
+* [BOM](BOM/README.md)  
+* [angularjs](angularjs/README.md)
     * [简介](angularjs/简介.md)
     * [作用域](angularjs/作用域.md)
     * [工具方法](angularjs/工具方法.md)
