@@ -135,4 +135,90 @@ window.onresize = function() {
 
 
 
+# 窗口尺寸与大小
+
+
+## 窗口可视区尺寸
+
+```js
+document.documentElement.clientWidth
+document.documentElement.clientHeight
+```
+
+document.documentElement 相当与 document.getElementsByTagName('html')[0]
+也就是html元素
+
+element.clientHeight = width + padding
+
+但是对于html元素，它的表现有点不同，它代表了窗口的大小
+
+
+## 窗口的滚动距离
+
+### Element.scrollTop 
+
+可以设置或者获取一个元素距离他容器顶部的像素距离(也就是滚动条滚动距离)
+
+
+在chrome中, 窗口的滚动距离为:
+
+document.body.scrollTop/scrollLeft  chrome中认为窗口的滚动条是属于body的
+
+
+在体浏览器中,窗口的滚动距离为:
+
+document.documentElement.scrollTop/scrollLeft chrome中认为窗口的滚动条是属于html的
+
+
+```js
+document.onclick = function(){
+
+    //chrome中
+    alert(document.body.scrollTop);
+
+    //其他浏览器中
+    alert(document.documentElement.scrollTop);
+}
+```
+
+
+## 窗口的内容高度
+
+document.body.scrollHeight
+
+
+### element.scrollHeight
+
+是计量元素内容高度的只读属性，包括overflow样式属性导致的视图中不可见内容
+
+```html
+<div id="wrapper">
+    <div></div>
+</div>
+
+<style>
+#wrapper{
+    width:100px;
+    height:100px;
+    padding: 10px;
+    border: 1px solid red; 
+    overflow: hidden; 
+}
+
+#wrapper>div{
+    height: 600px;
+    width: 90px; 
+    background: red;
+}
+</style>
+
+<script>
+var oDiv = document.getElementById('wrapper');
+alert(oDiv.scrollHeight);//620 = 600+10*2 (10为wrapper的padding);
+</script>
+``` 
+
+
+
+
 

@@ -15,6 +15,8 @@
     * [数组](Javascript/数组.md)   
     * [Date](Javascript/Date.md)
     * [基本类型和引用类型](Javascript/基本类型和引用类型.md)
+    * [事件](Javascript/事件.md)
+    * [事件应用](Javascript/事件应用.md)
 * [DOM]()
     * [DOM的概念及子节点类型](DOM/DOM的概念及子节点类型.md)
     * [子节点和兄弟节点的操作](DOM/子节点和兄弟节点的操作.md)
