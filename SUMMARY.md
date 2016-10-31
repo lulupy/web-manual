@@ -28,7 +28,10 @@
     * [表单操作](DOM/表单操作.md)
 * [BOM](BOM/README.md)  
 * [jquery](jquery/README.md)
-* [第一课](jquery/第一课.md)
+    * [第一课](jquery/第一课.md)
+    * [第二课](jquery/第二课.md)
+    * [第三课](jquery/第三课.md)
+    * [第四课](jquery/第四课.md)
 * [jquery-old](jquery-old/README.md)
     * [jquery初识](jquery-old/jquery初识.md)
     * [jquery选择器](jquery-old/jquery选择器.md)
@@ -68,7 +71,6 @@
         * [koa-static](koa/koa-static.md)
         * [koa-session](koa/koa-session.md)
         * [koa-logger](koa/koa-logger.md)
-
 * [mongodb](mongodb/README.md)
 * [html5](html5/README.md)
     * [变化的元素](html5/变化的元素.md)
@@ -97,7 +99,6 @@
 * [其他](其他/README.md)
     * [简历、笔试、面试](其他/简历、笔试、面试.md)
     * [简历](其他/简历.md)
-
 * [angular2]()
     * [typescript](angular2/typescript.md)
 
