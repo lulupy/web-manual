@@ -8,6 +8,7 @@
     * [函数](Javascript02/函数.md)
     * [对象](Javascript02/对象.md)
     * [客户端](Javascript02/客户端.md)
+    * [dom](Javascript02/dom.md)
 
 * [Javascript基础]()
     * [基础概念](Javascript/基础概念.md)
@@ -56,8 +57,6 @@
     * [新增的标签](html5/新增的标签.md)
     * [视频和音频](html5/视频和音频.md)
     * [表单](html5/表单.md)
-    * [HTML5存储](html5/HTML5存储.md)
-    * [canvas](html5/canvas.md)
 * [angularjs](angularjs/README.md)
     * [简介](angularjs/简介.md)
     * [作用域](angularjs/作用域.md)
