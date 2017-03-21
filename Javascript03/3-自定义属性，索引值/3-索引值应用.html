@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<input type="button" id="input" value="A">
+<script>
+var input = document.getElementById('input');
+var arr = ['A', 'B', 'C', 'D'];
+var index = 0;
+
+input.onclick = function () {
+	index = index + 1;
+	if(index==arr.length){
+		index = 0;
+	}
+	this.value = arr[index];
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+
+</style>
+</head>
+<body>
+<img src="./file.png" alt="">
+<script>
+var imgs = document.getElementsByTagName('img');
+var img = imgs[0];
+
+var onOff = false;
+
+img.onclick = function () {
+	if(onOff){
+		img.src = './file.png';
+	}
+	else{
+		img.src = './file_select.png';
+	}
+
+	onOff = !onOff;
+}
+</script>
+</body>
+</html>

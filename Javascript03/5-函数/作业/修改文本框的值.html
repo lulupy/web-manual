@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+h1{
+	background: rgb(107, 165, 66);
+	font-size: 20px;
+	line-height: 30px;
+
+}
+li{
+	list-style: none;
+	border-bottom: 1px  solid #ccc;
+}
+
+
+
+li .show-panel>span,
+li .show-panel>img{
+	vertical-align: middle;
+}
+.edit-panel{
+	display: none;
+}
+.edit-panel input[type="text"]{
+	height: 25px;
+}
+
+.edit-panel input[type="button"]{
+	background: none;
+	border: none;
+	outline: none;
+	padding: 10px 20px;
+	color: rgb(107, 165, 66);
+}
+
+.edit-panel input[type="button"]:hover{
+	color: white;
+	background: rgb(107, 165, 66);
+}
+</style>
+</head>
+<body>
+	<div>
+		<h1>分类名称</h1>
+		<ul>
+			<li>
+				<div class="show-panel">
+					<span>十月驿</span><img src="img/修改.png" alt="" width="29" class="edit-btn">
+				</div>
+				<div class="edit-panel">
+					<input type="text">
+					<input type="button" value="保存">
+					<input type="button" value="取消">
+				</div>
+			</li>
+			<li>
+				<div class="show-panel">
+					<span>十月驿</span><img src="img/修改.png" alt="" width="29" class="edit-btn">
+				</div>
+				<div class="edit-panel">
+					<input type="text">
+					<input type="button" value="保存">
+					<input type="button" value="取消">
+				</div>
+			</li>
+			<li>
+				<div class="show-panel">
+					<span>十月驿</span><img src="img/修改.png" alt="" width="29" class="edit-btn">
+				</div>
+				<div class="edit-panel">
+					<input type="text">
+					<input type="button" value="保存">
+					<input type="button" value="取消">
+				</div>
+			</li>
+			<li>
+				<div class="show-panel">
+					<span>十月驿</span><img src="img/修改.png" alt="" width="29" class="edit-btn">
+				</div>
+				<div class="edit-panel">
+					<input type="text">
+					<input type="button" value="保存">
+					<input type="button" value="取消">
+				</div>
+			</li>
+			<li>
+				<div class="show-panel">
+					<span>十月驿</span><img src="img/修改.png" alt="" width="29" class="edit-btn">
+				</div>
+				<div class="edit-panel">
+					<input type="text">
+					<input type="button" value="保存">
+					<input type="button" value="取消">
+				</div>
+			</li>
+		</ul>
+	</div>
+<script>
+/*
+var oLi = document.getElementsByTagName('li')[0];
+var oShow = oLi.getElementsByClassName('show-panel')[0];
+var oEdit = oLi.getElementsByClassName('edit-panel')[0];
+
+var oEditBtn = oLi.getElementsByClassName('edit-btn')[0];
+
+var oShowSpan = oShow.getElementsByTagName('span')[0];
+
+var aInput = oEdit.getElementsByTagName('input');
+var oInput = aInput[0];
+var oSaveBtn = aInput[1];
+var oCancelBtn = aInput[2];
+
+oEditBtn.onclick = function(){
+	oShow.style.display = 'none';
+	oEdit.style.display = 'block';
+	oInput.value = oShowSpan.innerHTML;
+}
+
+oSaveBtn.onclick = function(){
+	oShow.style.display = 'block';
+	oEdit.style.display = 'none';
+
+	oShowSpan.innerHTML = oInput.value;
+
+}
+
+oCancelBtn.onclick = function(){
+	oShow.style.display = 'block';
+	oEdit.style.display = 'none';
+}
+*/
+
+var aLi = document.getElementsByTagName('li');
+
+function editLi(oLi){
+	var oShow = oLi.getElementsByClassName('show-panel')[0];
+	var oEdit = oLi.getElementsByClassName('edit-panel')[0];
+
+	var oEditBtn = oLi.getElementsByClassName('edit-btn')[0];
+
+	var oShowSpan = oShow.getElementsByTagName('span')[0];
+
+	var aInput = oEdit.getElementsByTagName('input');
+	var oInput = aInput[0];
+	var oSaveBtn = aInput[1];
+	var oCancelBtn = aInput[2];
+
+	oEditBtn.onclick = function(){
+		oShow.style.display = 'none';
+		oEdit.style.display = 'block';
+		oInput.value = oShowSpan.innerHTML;
+	}
+
+	oSaveBtn.onclick = function(){
+		oShow.style.display = 'block';
+		oEdit.style.display = 'none';
+
+		oShowSpan.innerHTML = oInput.value;
+
+	}
+
+	oCancelBtn.onclick = function(){
+		oShow.style.display = 'block';
+		oEdit.style.display = 'none';
+	}
+}
+
+
+for(var i=0;i<aLi.length;i++){
+	editLi(aLi[i]);
+}
+</script>
+</body>
+</html>

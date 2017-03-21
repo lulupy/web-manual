@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.picture{
+	height: 500px;
+	width: 400px;
+	margin: 10px auto;
+	position: relative;
+}
+
+.picture img{
+	height: 500px;
+	width: 400px;
+}
+
+
+.picture ul {
+	position: absolute;
+	top: 0;
+	right: -60px;
+}
+.picture li{
+	list-style: none;
+
+	height: 50px;
+	width: 50px;
+	margin-bottom: 10px;
+	background:#666;
+}
+
+.picture li.active{
+	background: #FC3;
+}
+
+.picture .page{
+	position: absolute;
+	top: 10px;
+	left: 0; 
+	right: 0;
+	text-align: center;
+	color: white;
+}
+
+.picture .title{
+	position: absolute;
+	bottom: 10px;
+	left: 0; 
+	right: 0;
+	text-align: center;
+	color: white;
+}
+</style>
+</head>
+<body>
+<div class="picture" id="picture">
+	<img src="img/1.png" alt="">
+	<span class="page">1/4</span>
+	<span class="title">图片加载中......</span>
+
+	<ul>
+	</ul>
+</div>
+<script>
+/*
+Element.getElementsByTagName()
+成员是当前元素节点的所有匹配指定标签名的子元素
+ */
+
+
+var data = [
+	{img: 'img/1.png', title: '图片一'},
+	{img: 'img/2.png', title: '图片二'},
+	{img: 'img/3.png', title: '图片三'},
+	{img: 'img/4.png', title: '图片四'},
+];
+
+
+var picture = document.getElementById('picture');
+var img = picture.getElementsByTagName('img')[0];
+var page = picture.getElementsByClassName('page')[0];
+var title = picture.getElementsByClassName('title')[0];
+var ul = picture.getElementsByTagName('ul')[0];
+var lis = picture.getElementsByTagName('li');
+
+var num =0;
+
+for(var i=0; i<data.length;i++){
+	ul.innerHTML+= '<li></li>'
+}
+
+
+
+//初始化
+img.src = data[num].img;
+page.innerHTML = 1+num + '/' + data.length;
+title.innerHTML = data[num].title; 
+lis[num].className = 'active';
+
+
+for(var i=0; i<data.length;i++){
+	lis[i].num = i;
+	lis[i].onclick = function(){
+		num = this.num;
+		img.src = data[num].img;
+		page.innerHTML = 1+num + '/' + data.length;
+		title.innerHTML = data[num].title; 
+
+		/*思路一： 全部清空， 当前添加*/
+		for (var i=0; i<lis.length; i++){
+			lis[i].className = '';
+		}
+
+		lis[num].className = 'active';
+
+		/*思路二:   清空上个, 当前添加*/
+	}
+}
+
+
+
+
+</script>
+</body>
+</html>

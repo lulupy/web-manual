@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+
+
+ul{
+	list-style: none;
+}
+
+
+.qq-list{
+	width: 240px;
+	border: 1px solid #111;
+	margin: 10px auto;
+}
+
+
+.qq-list h2{
+	height:30px; 
+	line-height:30px; 
+	text-indent:20px; 
+	background:url(img/ico1.gif) no-repeat 5px center #6FF; 
+	color:#000;
+}
+.qq-list ul{
+	display: none;
+}
+
+.qq-list .active h2{
+	background-image: url(img/ico2.gif);
+}
+
+.qq-list .active ul{
+	display: block;
+}
+.qq-list ul li { 
+	line-height:24px; 
+	border-bottom:1px solid #333; 
+	text-indent:24px; 
+}
+
+.qq-list ul .hover { background:#6FF; }
+</style>
+</head>
+<body>
+	<ul class="qq-list" id="qq-list">
+		<li class="active">
+			<h2>我的好友</h2>
+			<ul>
+				<li>张三</li>
+				<li>李四</li>
+			</ul>
+		</li>
+
+		<li>
+			<h2>企业好友</h2>
+			<ul>
+				<li>腾讯</li>
+				<li>阿里</li>
+			</ul>
+		</li>
+
+		<li>
+			<h2>其他</h2>
+			<ul>
+				<li>张全蛋</li>
+			</ul>
+		</li>
+	</ul>
+<script>
+var qqList = document.getElementById('qq-list');
+var h2s = qqList.getElementsByTagName('h2');
+var uls = qqList.getElementsByTagName('ul');
+var lis = qqList.children;
+
+var arrLi = [];
+
+for(var i=0; i<lis.length; i++){
+	lis[i].onclick = function(){
+		for (var i=0; i<lis.length;i++){
+			lis[i].className = '';
+		}
+		this.className = 'active';
+	}
+}
+
+
+for(var i=0; i<uls.length; i++){
+	for (var j=0; j<uls[i].children.length; j++){
+		arrLi.push(uls[i].children[j])
+	}
+}
+
+for(var i=0; i<arrLi.length; i++){
+	arrLi[i].onclick = function(){
+		for( var i=0; i<arrLi.length; i++ ){
+			if( arrLi[i] !=this ){
+				arrLi[i].className = '';
+			}
+		}
+		if( this.className == '' ){
+			this.className = 'hover';
+		}else{
+			this.className = '';
+		}
+}
+}
+
+
+
+</script>
+</body>
+</html>
