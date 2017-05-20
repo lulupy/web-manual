@@ -95,9 +95,7 @@
 * [其他](其他/README.md)
     * [简历、笔试、面试](其他/简历、笔试、面试.md)
     * [简历](其他/简历.md)
-* [react]()
-    * [入门](react/入门)
-    * [webpack](react/webpack)
+
 
 <!-- 
 * [jquery-old](jquery-old/README.md)
