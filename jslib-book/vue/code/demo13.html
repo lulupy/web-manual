@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo12</title>
+</head>
+<body>
+<div id="demo12">
+    <custom-select btn-text="搜索"></custom-select>
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+
+
+
+Vue.component('custom-select', {
+    //必须为驼峰命名
+    props: ['btnText'],
+    data: function(){
+        return {
+            show: false
+        }
+    },
+    template: `
+    <section class="warp">
+        <div class="searchIpt clearFix">
+            <div class="clearFix">
+                <input type="text" class="keyWord" value="" v-on:click="show =!show" />
+                <input type="button" v-bind:value="btnText">
+                <span></span>
+            </div>
+            <ul class="list" v-show="show">
+                <li>html+css</li>
+                <li>html5+css3</li>
+                <li>javascript</li>
+                <li>angular</li>
+                <li>react</li>
+                <li>vue</li>
+                <li>jquery</li>
+                <li>nodejs</li>
+            </ul>
+        </div>
+    </section>
+    `
+});
+var vm = new Vue({
+    el: '#demo12'
+    
+})
+
+</script>
+</body>
+</html>

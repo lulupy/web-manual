@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo10</title>
+</head>
+<body>
+<div id="demo10">
+    <custom-select></custom-select>
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+
+var data = {
+    text: 'hello world!'
+}
+
+Vue.component('custom-select', {
+    template: `
+    <section class="warp">
+        <div class="searchIpt clearFix">
+            <div class="clearFix">
+                <input type="text" class="keyWord" value="" />
+                <input type="button" value="查询">
+                <span></span>
+            </div>
+            <ul class="list">
+                <li>html+css</li>
+                <li>html5+css3</li>
+                <li>javascript</li>
+                <li>angular</li>
+                <li>react</li>
+                <li>vue</li>
+                <li>jquery</li>
+                <li>nodejs</li>
+            </ul>
+        </div>
+    </section>
+    `
+});
+var vm = new Vue({
+    el: '#demo10'
+    
+})
+
+</script>
+</body>
+</html>

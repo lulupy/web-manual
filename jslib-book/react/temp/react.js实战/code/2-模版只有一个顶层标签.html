@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+<div id="container"></div>
+
+<script src="src/react.js"></script>
+<script src="src/react-dom.js"></script>
+<script src="src/browser.min.js"></script>
+
+<script type="text/babel">
+var StudentApp = React.createClass({
+    render: function(){
+        return (
+            <div>
+                <h1>学员信息表</h1>
+                <h2>3年2班</h2>
+            </div>
+        );
+    }
+});
+ReactDOM.render(<StudentApp />, document.getElementById('container'))
+</script>
+</body>
+</html>

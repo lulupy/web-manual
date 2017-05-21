@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<canvas id="canvas" width="900" height="700">
+	你的浏览器不支持画布,请更换浏览器
+</canvas>
+
+<script type="text/javascript">
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+context.moveTo(100, 100);
+context.lineTo(700, 700);
+context.lineTo(100,700);
+context.lineTo(100,100);
+
+
+context.lineWidth = 5;
+context.strokeStyle = "red";
+context.stroke();
+
+context.beginPath(); //清空之前的状态
+context.moveTo(200, 100);
+context.lineTo(800, 700);
+
+context.closePath();
+context.strokeStyle = "blue";
+context.stroke();
+
+
+</script>
+</body>
+</html>

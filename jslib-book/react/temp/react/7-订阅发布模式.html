@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+     <link rel="stylesheet" href="lib/bootstrap.min.css">
+</head>
+<body>
+<div id="demo"></div>
+<script src="lib/react.js"></script>
+<script src="lib/react-dom.js"></script>
+<script src="lib/browser.min.js"></script>
+<script src="lib/pubsub.js"></script>
+<script type="text/babel">
+var MainComponent = React.createClass({
+    getInitialState: function(){
+        return {
+            list: this.props.list
+        }
+    },
+    componentDidMount: function(){
+        console.log('组件加载完成');
+        PubSub.subscribe('deleteItem', function(evName,data){
+            var newArr = this.props.list.filter(function(item){
+                if( item._id != data ){
+                    return true;
+                }
+            })
+
+            this.setState({ 
+                list: newArr
+            })
+        }.bind(this));
+    },
+    render: function(){
+        return (
+            <div className="container">
+                <div className="row">
+                    <MsgComponent addItem={this.addItem} />
+                    <div className="col-md-7">
+                        <h3>留言回复</h3>
+                         <ListComponent list={this.state.list}/>
+                    </div>
+                </div>
+            </div>
+        );
+    },
+
+    addItem: function(comment){
+        var newList = this.state.list.concat([comment]);
+        this.setState({
+            list: newList
+        })
+    }
+});
+
+
+var MsgComponent = React.createClass({
+    render: function(){
+        return (
+            <div className="col-md-5">
+                <div className="form-group">
+                    <label for="">用户名：</label>
+                    <input type="text" ref="userName" className="form-control" />
+                </div>
+                <div className="form-group">
+                    <label for="">评论：</label>
+                    <textarea  ref="content" name="" id="" cols="30" rows="10" className="form-control"></textarea>
+                </div>
+                <button className="btn" onClick={this.addHandler}>提交</button>
+            </div>
+        );
+    },
+    addHandler: function(){
+        var userName = this.refs.userName;
+        var content = this.refs.content;
+
+        var newComment = {
+            userName: userName.value,
+            content: content.value,
+            _id: new Date()
+        }
+
+        this.props.addItem(newComment);
+
+        userName.value = '';
+        content.value = '';
+
+
+    }
+});
+
+
+var ListComponent = React.createClass({
+    render: function(){
+        return (
+            <ul className="list-group">
+                {
+                    this.props.list.map(function(item, index){
+                        return <ItemComponent item={item} key={index}/>
+                    })
+                }
+                
+            </ul>
+        );
+    }
+})
+
+var ItemComponent = React.createClass({
+    render: function(){
+        return (
+            <li className="list-group-item">
+                <button className="close pull-right" onClick={this.clickHandler}>x</button>
+                <p>{this.props.item.userName}： {this.props.item.content}</p>
+
+            </li>
+        );
+    },
+    clickHandler: function(){
+        PubSub.publish('deleteItem', this.props.item._id);
+    }
+});
+
+var data = [
+    {
+        userName: 'xxx',
+        content: '今天好忙',
+        _id: new Date()+1
+    },
+     {
+        userName: 'yyy',
+        content: '今天好闲',
+        _id: new Date()
+    },
+
+
+]
+
+ReactDOM.render(<MainComponent list={data}/>, document.getElementById('demo'));
+</script>
+</body>
+</html>

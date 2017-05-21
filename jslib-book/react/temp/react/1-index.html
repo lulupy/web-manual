@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<div id="container"></div>
+
+<script src="src/react.js"></script>
+<script src="src/react-dom.js"></script>
+<!-- 解析jsx语法 -->
+<script src="src/browser.min.js"></script>	
+
+<script type="text/babel">
+// var container = document.getElementById('container');
+var container = document.querySelector('#container');
+// var helloStr = 'li lei';
+// ReactDOM.render( 
+// 	<div>hello {helloStr}</div>,
+// 	container
+// )
+
+
+var names = ['Alice', 'Emily', 'Kate'];
+
+// var namesHtml = [
+// 	<div>Hello, Alice!</div>,
+// 	<div>Hello, Emily!</div>,
+// 	<div>Hello, Kate!</div>
+// ];
+
+ReactDOM.render(
+  <div>
+  {
+    names.map(function(name){
+    	return <div>hello, {name} !</div>;
+    })
+  }
+  </div>,
+  container
+);
+
+1. 遇到'<', 看到html
+2. 遇到'{', 看成js
+3. {变量}, 直接解析
+4. {arr}, 则展开里面所有的项
+</script>
+</body>
+</html>

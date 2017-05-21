@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+
+	</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+html,body{
+	height: 100%;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas">
+	你的浏览器不支持画布,请更换浏览器
+</canvas>
+<script type="text/javascript" src="digit.js"></script>
+<script type="text/javascript">
+var WINDOW_WIDTH = document.body.clientWidth;
+var WINDOW_HEIGHT = document.body.clientHeight;
+var MARGIN_LEFT = 100;
+var MARGIN_TOP = 50;
+var RADIUS = 10;
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+canvas.width = WINDOW_WIDTH;
+canvas.height = WINDOW_HEIGHT;
+
+var colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"]
+var now = new Date();
+var oldHour = now.getHours();
+var oldMin = now.getMinutes();
+var oldSec = now.getSeconds();
+
+
+var balls = [];//保存小球
+//绘制函数
+function render(){
+
+	context.clearRect(0,0,WINDOW_WIDTH, WINDOW_HEIGHT);
+	var hourHight = Math.floor(oldHour/10);
+	var hourLow = oldHour%10;
+	var minHight = Math.floor(oldMin/10);
+	var minLow = oldMin%10;
+
+	var secHight = Math.floor(oldSec/10);
+	var secLow = oldSec%10;
+
+
+	// 绘制小时高位
+	renderDigit(MARGIN_LEFT, MARGIN_TOP, Math.floor(hourHight), context );
+	//绘制小时低位
+	renderDigit(MARGIN_LEFT+7*(2*(RADIUS+1))+10, MARGIN_TOP, hourLow, context );
+	//绘制‘：’
+	renderDigit(MARGIN_LEFT+2*(7*(2*(RADIUS+1))+10), MARGIN_TOP, 10, context );
+	renderDigit(MARGIN_LEFT+2*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10), MARGIN_TOP, minHight, context );
+	renderDigit(MARGIN_LEFT+3*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10), MARGIN_TOP, minLow, context );
+	renderDigit(MARGIN_LEFT+4*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10), MARGIN_TOP, 10, context );
+	renderDigit(MARGIN_LEFT+4*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10)*2, MARGIN_TOP, secHight, context );
+	renderDigit(MARGIN_LEFT+5*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10)*2, MARGIN_TOP, secLow, context );
+
+	for( var i = 0 ; i < balls.length ; i ++ ){
+        context.fillStyle=balls[i].color;
+
+        context.beginPath();
+        context.arc( balls[i].x , balls[i].y , RADIUS , 0 , 2*Math.PI , true );
+        context.closePath();
+
+        context.fill();
+    }
+}
+function update(){
+	var now  = new Date()
+	var hour = now.getHours();
+	var min = now.getMinutes();
+	var sec = now.getSeconds();
+
+	if(sec !== oldSec){
+
+		if(hour!==oldHour){
+			if(parseInt(hour/10)!==parseInt(oldHour/10)){
+				var hourHight = parseInt(oldHour/10);
+				addBalls(MARGIN_LEFT, MARGIN_TOP, Math.floor(hourHight))
+			}
+			if(hour%10!==oldHour%10){
+				var hourLow = oldHour%10;
+				addBalls(MARGIN_LEFT+7*(2*(RADIUS+1))+10, MARGIN_TOP, hourLow);
+			}
+		}
+		if(min!==oldMin){
+			if(parseInt(min/10)!==parseInt(oldMin/10)){
+				var minHight = parseInt(oldMin/10);
+				addBalls(MARGIN_LEFT+2*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10), MARGIN_TOP, minHight);
+			}
+			if(min%10!==oldMin%10){
+				var minLow = oldMin%10;
+				addBalls(MARGIN_LEFT+3*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10), MARGIN_TOP, minLow);
+			}
+		}
+		if(sec!==oldSec){
+			if(parseInt(sec/10)!==parseInt(oldSec/10)){
+				var secHight = parseInt(oldSec/10);
+				addBalls(MARGIN_LEFT+4*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10)*2, MARGIN_TOP, secHight);
+			}
+			if(sec%10!==oldSec%10){
+				var secLow = oldSec%10;
+				addBalls(MARGIN_LEFT+5*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10)*2, MARGIN_TOP, secLow);
+			}
+		}
+		oldSec = sec;
+		oldHour = hour;
+		oldMin = min;
+		
+		
+
+	}
+	updateBalls();
+}
+
+function updateBalls(){
+
+    for( var i = 0 ; i < balls.length ; i ++ ){
+
+        balls[i].x += balls[i].vx;
+        balls[i].y += balls[i].vy;
+        balls[i].vy += balls[i].g;
+
+        if( balls[i].y >= WINDOW_HEIGHT-RADIUS ){
+            balls[i].y = WINDOW_HEIGHT-RADIUS;
+            balls[i].vy = - balls[i].vy*0.75;
+        }
+    }
+}
+function renderDigit(x, y, num, cxt){
+	var digitNum = digit[num];
+	cxt.fillStyle = "rgb(0,102,153)";
+	for (var i=0; i< digitNum.length;i++){
+		for(var j=0;j<digitNum[i].length;j++){
+			if(digitNum[i][j]==1){
+				cxt.beginPath();
+				cxt.arc(x+(RADIUS+1)*2*j, y+(RADIUS+1)*2*i, 10, 0, 2*Math.PI);
+				cxt.stroke();
+				cxt.fill();
+			}
+		}
+	}
+}
+
+
+function addBalls(x, y, num){
+	for(var i=0;i<digit[num].length;i++){
+		for(var j=0; j<digit[num][i].length;j++){
+			if(digit[num][i][j]===1){
+				var ball = {
+					x: x+(RADIUS+1)*2*j, 
+					y: y+(RADIUS+1)*2*i, 
+					r: RADIUS,
+					g: 1.5+Math.random(), 
+					vx: Math.pow( -1 , Math.ceil( Math.random()*1000 ) ) * 4, 
+					vy: -5, 
+					color: colors[ Math.floor( Math.random()*colors.length ) ]
+				}
+
+				balls.push(ball);
+			}
+		}
+	}
+}
+update();
+render();
+
+setInterval(function(){
+	
+	update()
+	render()
+}, 50)
+</script>
+</body>
+</html>

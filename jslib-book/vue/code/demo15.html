@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo15</title>
+</head>
+<body>
+<div id="demo15">
+    <custom-select btn-text="搜索" v-bind:list="list1"></custom-select>
+    <custom-select btn-text="搜索" v-bind:list="list2"></custom-select>
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+
+
+Vue.component('custom-list', {
+    props: ['show', 'list'],
+    template: `
+        <ul class="list" v-show="show">
+            <li v-for="item in list" v-on:click="clickHandler(item)">{{item}}</li>
+        </ul>
+    `,
+    methods: {
+        clickHandler: function(item){
+            this.$emit('setValue', item);
+        }
+    }
+});
+
+Vue.component('custom-select', {
+    //必须为驼峰命名
+    props: ['btnText', 'list'],
+    data: function(){
+        return {
+            show: false,
+            val: ''
+        }
+    },
+    template: `
+    <section class="warp">
+        <div class="searchIpt clearFix">
+            <div class="clearFix">
+                <input type="text" class="keyWord" v-bind:value="val" v-on:click="show =!show" />
+                <input type="button" v-bind:value="btnText">
+                <span></span>
+            </div>
+            <custom-list v-bind:show="show" v-bind:list="list" v-on:setValue="setValue"></custom-list>
+        </div>
+    </section>
+    `,
+    methods: {
+        setValue: function(item){
+            this.val = item;
+        }
+    }
+});
+
+
+var data = {
+    list1: ['北京', '上海', '成都'],
+    list2: ['2017-1-1', '2017-1-2', '2017-1-3']
+}
+
+var vm = new Vue({
+    el: '#demo15',
+    data: data
+    
+})
+
+</script>
+</body>
+</html>

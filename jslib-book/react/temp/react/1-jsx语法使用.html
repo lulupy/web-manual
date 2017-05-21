@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="src/react.js"></script>
+<script src="src/react-dom.js"></script>
+<script src="src/browser.min.js"></script>
+<script type="text/babel">
+//注意点：
+//react.js基本库 react-dom.js操作dom库 browser.js
+//React.creatClass  创建一个类， 注意类名必须首字母大写
+//在模板中class要写成className, 因为class是关键字
+//模板只有一个顶层标签
+
+
+var StudentApp = React.createClass({
+	render: function(){
+		return (
+		<div>
+			<h1>{this.props.title}</h1>
+			<button>{this.props.btn}</button>
+		</div>);
+	}
+});
+
+//var title = 'aaa';
+var obj={
+	title: 'aaa',
+	btn: 'bbbb'
+}
+
+ReactDOM.render(	<StudentApp {...obj}/>, 
+					document.getElementById('app'),
+					function(){ console.log('1') }
+				);
+
+
+
+
+</script>
+</body>
+</html>

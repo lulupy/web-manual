@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="src/react.js"></script>
+<script src="src/react-dom.js"></script>
+<script src="src/browser.min.js"></script>
+<script type="text/babel">
+
+var StudentApp = React.createClass({
+	getInitialState: function(){
+		console.log(this.props.title);
+		return {
+			msg: this.props.title
+		}
+	},
+	render: function(){
+		return (
+		<div>
+			<input value={this.state.msg} onChange={this.changeHandler}/>	
+			<p>{this.state.msg}</p>	
+		</div>
+		);
+	},
+	changeHandler: function(ev){
+		this.setState({ msg: ev.target.value });
+	}
+});
+
+
+
+ReactDOM.render(	<StudentApp title={'sdfsad'}/>, 
+					document.getElementById('app'),
+					function(){ console.log('1') }
+				);
+
+
+
+
+</script>
+</body>
+</html>

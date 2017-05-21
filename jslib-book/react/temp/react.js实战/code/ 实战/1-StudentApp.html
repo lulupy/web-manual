@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+    <style type="text/css">
+    table th,
+    table td {
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+<div id="student-app"></div>
+
+<script src="src/react.js"></script>
+<script src="src/react-dom.js"></script>
+<script src="src/browser.min.js"></script>
+
+<script type="text/babel">
+var StudentApp = React.createClass({
+  render: function() {
+    return (
+        <div className="container">
+            <h1>学员成信息表</h1>
+            <div className="bs-example">
+                <div className="form-group">
+                    <label>按性别筛选</label>
+                    <select className="form-control">
+                        <option value="all">all</option>
+                        <option value="1">男</option>
+                        <option value="0">女</option>
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label>按名字筛选</label>
+                    <input type="text" className="form-control" placeholder="请输入名字" />
+                </div>
+            </div>
+            <div className="table-responsive">
+                <table className="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>年龄</th>
+                            <th>身高（cm）</th>
+                            <th>体重（kg）</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tb">
+                        <tr>
+                            <td>aaa</td>
+                            <td>女</td>
+                            <td>18</td>
+                            <td>165</td>
+                            <td>45</td>
+                            <td><a href="javascript:;">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td>bbb</td>
+                            <td>男</td>
+                            <td>35</td>
+                            <td>180</td>
+                            <td>80</td>
+                            <td><a href="javascript:;">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td>ccc</td>
+                            <td>女</td>
+                            <td>22</td>
+                            <td>171</td>
+                            <td>60</td>
+                            <td><a href="javascript:;">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td>ddd</td>
+                            <td>男</td>
+                            <td>26</td>
+                            <td>175</td>
+                            <td>70</td>
+                            <td><a href="javascript:;">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td>bbb</td>
+                            <td>女</td>
+                            <td>18</td>
+                            <td>170</td>
+                            <td>50</td>
+                            <td><a href="javascript:;">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td>ddd</td>
+                            <td>女</td>
+                            <td>38</td>
+                            <td>166</td>
+                            <td>50</td>
+                            <td><a href="javascript:;">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td>ccc</td>
+                            <td>男</td>
+                            <td>30</td>
+                            <td>175</td>
+                            <td>65</td>
+                            <td><a href="javascript:;">删除</a> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>   
+    );
+  }
+});
+
+ReactDOM.render(
+  <StudentApp />,
+  document.getElementById('student-app')
+);
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo04</title>
+</head>
+<body>
+<div id="demo04">
+    <span v-on:click="clickHandler">click</span>
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+
+
+var vm = new Vue({
+    el: '#demo04',
+    methods: {
+        clickHandler: function(){
+            alert(1);
+        }
+    }
+})
+
+</script>
+</body>
+</html>

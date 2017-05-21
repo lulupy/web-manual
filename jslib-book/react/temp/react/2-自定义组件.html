@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+.wrap{
+	border: 1px solid #111;
+}
+</style>
+</head>
+<body>
+
+<div id="container"></div>
+<script src="src/react.js"></script>
+<script src="src/react-dom.js"></script>
+<!-- 解析jsx语法 -->
+<script src="src/browser.min.js"></script>	
+
+<script type="text/babel">
+var container = document.getElementById('container');
+
+//注意:  
+//1.组件只能返回一个顶层标签
+//2.组件名字，首字母必须大写
+//3.jsx语法中， html标签的class属性要写成className, 因为在js中class是关键字
+//propertys//
+var Hello = React.createClass({
+	render: function(){
+		var name  = this.props.name;
+		return <div className="wrap">
+			<h1>hello {name}, age {this.props.age}</h1>
+		</div>;
+	}
+});
+
+ReactDOM.render( 
+	<Hello name="sdfsadfsad" age="18"></Hello>,
+	container
+);
+
+</script>
+</body>
+</html>

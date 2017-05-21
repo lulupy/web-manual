@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo18</title>
+</head>
+<body>
+<div id="demo18">
+    <custom>
+        <div slot="1">自定义模板1</div>
+        <div slot="2">自定义模板2</div>
+        <div slot="3">自定义模板3</div>
+    </custom>
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+Vue.component('custom', {
+
+    template: `
+        <div>
+            <slot name="1">
+                <div>默认模板1</div>
+            </slot>
+            <slot name="2">
+                <div>默认模板2</div>
+            </slot>
+            <slot name="3">
+                <div>默认模板3</div>
+            </slot>
+
+            <div>固定不变的模板</div>
+        </div>
+    `
+});
+
+
+new Vue({
+    el: '#demo18'
+});
+</script>
+</body>
+</html>

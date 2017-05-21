@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+.wrap{
+	border: 1px solid #111;
+}
+</style>
+</head>
+<body>
+
+<div id="container"></div>
+<script src="src/react.js"></script>
+<script src="src/react-dom.js"></script>
+<!-- 解析jsx语法 -->
+<script src="src/browser.min.js"></script>	
+
+<script type="text/babel">
+var container = document.getElementById('container');
+
+var LinkBtn = React.createClass({
+  //获取初始状态
+  getInitialState: function(){
+    return {
+      liked: false
+    }
+  },
+
+  clickHandle: function(){
+      var liked = !this.state.liked;
+      //通过组件的setState方法来改变状态，react会检查到状态的的改变，同时自动刷新页面
+      //setState方法传入一个状态对象
+      this.setState({
+        liked: liked
+      });
+  },
+  render: function(){
+    var text = '喜欢';
+
+    if(!this.state.liked){
+      text = '不喜欢';
+    }
+    return (
+      <p onClick={this.clickHandle}>
+        你{text}它， 点击切换
+      </p>
+    )
+  }
+});
+
+
+ReactDOM.render(  
+  <LinkBtn />,
+  container
+)
+</script>
+</body>
+</html>

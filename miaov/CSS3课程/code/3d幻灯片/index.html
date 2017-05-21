@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    text-align: center;
+}
+.container{
+    width: 800px;
+    height: 360px;
+    margin: 20px auto;
+    perspective: 800px;
+}
+.item{
+    width: 50px;
+    height: 360px;
+    float: left;
+    position: relative;
+    transition: 1s all;
+    transform-origin: center center -180px;
+    transform-style: preserve-3d;
+}
+.item>div{
+    width: 50px;
+    height: 360px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.side-4{
+    background-image: url(1.jpg); 
+}
+.side-3{
+    background-image: url(2.jpg); 
+    transform: translateZ(-360px) rotateX(180deg);
+}
+.side-2{
+    background-image: url(3.jpg); 
+    transform-origin: top; 
+    transform:  rotateX(-90deg) translateZ(360px);
+}
+.side-1{
+    background-image: url(4.jpg); 
+    transform-origin: bottom; 
+    transform:  rotateX(90deg) translateZ(360px);
+}
+</style>
+</head>
+<body>
+    <div class="container" id="container">
+        <!-- <div class="item">
+            <div class="side-1"></div>
+            <div class="side-2"></div>
+            <div class="side-3"></div>
+            <div class="side-4"></div>
+        </div> -->
+    </div>
+    <button>上一张</button>
+    <button>下一张</button>
+<script>
+var str='';
+for(var i=0;i<16;i++){
+    var zIndex = 0;
+    if(i>7){
+        zIndex = 8-i;
+    }
+    str+= 
+    '<div class="item" style="z-index: '+zIndex+';">'+
+        '<div class="side-1" style="background-position: '+(-i*50)+'px 0px;"></div>'+
+        '<div class="side-2" style="background-position: '+(-i*50)+'px 0px;"></div>'+
+        '<div class="side-3" style="background-position: '+(-i*50)+'px 0px;"></div>'+
+        '<div class="side-4" style="background-position: '+(-i*50)+'px 0px;"></div>'+
+    '</div>';
+}
+
+var container = document.getElementById('container');
+container.innerHTML = str;
+var items = document.getElementsByClassName('item');
+var btns = document.getElementsByTagName('button');
+var pre = btns[0];
+var next = btns[1];
+
+var iNow =0;
+function change(iNow){
+    var i = 0;
+    var timer = setInterval(function(){
+        items[i].style.transform = 'rotateX(-'+iNow*90+'deg)';
+        i++;
+        if(i==16){
+            clearInterval(timer);
+        }
+    }, 50);
+}
+next.onclick = function(){
+    iNow++;
+    if(iNow==4){
+        iNow =0;
+    }
+    change(iNow);
+}
+pre.onclick = function(){
+    iNow--;
+    if(iNow==-1){
+        iNow =3;
+    }
+    change(iNow);
+}
+</script>
+
+</body>
+</html>

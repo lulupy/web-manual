@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo20</title>
+</head>
+<body>
+<div id="demo20">
+    <custom>
+        <!--渲染的数据是父组件中的数据-->
+        {{message}}
+    </custom>
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+
+//定制模板 
+//父组件模板的内容在父组件作用域内编译
+//子组件模板的内容在子组件作用域内编译
+Vue.component('custom', {
+    data: function(){
+        return {
+            message: '子组件中的message'
+        }
+    },
+    template: `
+        <div>
+            <slot>默认模板</slot>
+            {{message}}
+        </div>
+
+    `
+});
+
+
+new Vue({
+    data: {
+        message: "父组件中的message"
+    },
+    el: '#demo20'
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+
+	</title>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	html,body{
+		height: 100%;
+	}
+</style>
+</head>
+<body>
+<canvas id="canvas" width="1024" height="768">
+	你的浏览器不支持画布,请更换浏览器
+</canvas>
+<script type="text/javascript" src="digit.js"></script>
+<script type="text/javascript">
+
+var RADIUS = 10;
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+
+
+//绘制函数
+function render(){
+	var hour = 12;
+	var min = 1;
+	var sec = 1;
+
+	// 绘制小时高位
+	renderDigit(0, 50, Math.floor(hour/10), context );
+	//绘制小时低位
+	renderDigit(7*21+10, 50, hour%10, context );
+	//绘制‘：’
+	renderDigit(2*(7*21+10), 50, 10, context );
+	renderDigit(2*(7*21+10)+(4*21+10), 50, Math.floor(min/10), context );
+	renderDigit(3*(7*21+10)+(4*21+10), 50, min%10, context );
+	renderDigit(4*(7*21+10)+(4*21+10), 50, 10, context );
+	renderDigit(4*(7*21+10)+(4*21+10)*2, 50, Math.floor(sec/10), context );
+	renderDigit(5*(7*21+10)+(4*21+10)*2, 50, sec%10, context );
+}
+
+function renderDigit(x, y, num, cxt){
+	var digitNum = digit[num];
+	var r = 10;
+	for (var i=0; i< digitNum.length;i++){
+		for(var j=0;j<digitNum[i].length;j++){
+			if(digitNum[i][j]==1){
+				cxt.beginPath();
+				cxt.arc(x+(r+1)*2*j, y+(r+1)*2*i, 10, 0, 2*Math.PI);
+				cxt.stroke();
+			}
+		}
+	}
+}
+
+render();
+</script>
+</body>
+</html>

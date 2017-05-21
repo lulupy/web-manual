@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<canvas id="canvas" width="900" height="700">
+	你的浏览器不支持画布,请更换浏览器
+</canvas>
+
+<script type="text/javascript">
+var trangram = [
+	{p: [{x: 0, y:0}, {x: 800,y: 0}, {x: 400, y:400}], color: "red"},
+];
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+for(var i=0;i<trangram.length;i++){
+	draw(trangram[i], context);
+}
+
+
+function draw(piece, cxt){
+	cxt.beginPath();
+	cxt.moveTo(piece.p[0].x, piece.p[0].y);
+	for(var i=1;i<piece.p.length;i++){
+		cxt.lineTo(piece.p[i].x, piece.p[i].y);
+	}
+	cxt.lineTo(piece.p[0].x, piece.p[0].y);
+	cxt.closePath();
+	cxt.fillStyle = piece.color;
+	cxt.fill();
+}
+
+
+</script>
+</body>
+</html>

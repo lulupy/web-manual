@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todo</title>
+<style>
+.completed{
+    text-decoration: line-through;
+}
+
+.edit{
+    display: none;
+}
+
+.editing .view{
+    display: none;
+}
+.editing .edit{
+    display: block;
+}
+</style>
+</head>
+<body>
+<div class="main">
+    <input type="text" v-model="todo" v-on:keyup.enter="addTodo"/>
+    <ul class="task-count" v-show="list.length">
+        <li>
+            <!-- 在模板中写逻辑是不推荐的 -->
+            <!-- {{list.filter(function(item){
+                return !item.completed;
+            }).length}} -->
+            {{uncompletedLength}}
+            个任务未完成
+        </li>
+        <li>
+            <a href="#all">all</a>
+            <a href="#completed">completed</a>
+            <a href="#uncompleted">uncompleted</a>
+        </li>
+    </ul>
+    <div v-show="!list.length">还没有添加数据</div>
+    <ul class="todo-list" >
+        <li v-for="todo in filterList" v-bind:class="{completed: todo.completed, editing: todo===editingTodo}">
+            <div class="view">
+                <input type="checkbox" v-model="todo.completed">
+                <label v-on:dblclick="editTodo(todo)">{{todo.title}}</label>
+                <!-- 这里deleteTodo(todo)不代表运行函数，只是预传参， 如果想在函数中使用事件对象， 可以使用$event关键字传入 -->
+                <!-- deleteTodo(todo, $event) -->
+                <button v-on:click="deleteTodo(todo)">x</button>    
+            </div>
+            <div class="edit">
+                <input v-focus="todo===editingTodo" v-on:keyup.esc="cancelEdit(todo)" v-on:blur="submitEdit" type="text" v-model="todo.title">
+            </div>
+            
+        </li>
+    </ul>
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+//封装localStorage操作
+var store = {
+    save: function(key, value){
+        localStorage.setItem(key, JSON.stringify(value));
+    },
+    fetch: function(key){
+        return JSON.parse( localStorage.getItem(key) );
+    }
+}
+
+// var list = [
+//     {
+//         title: 'task1', completed: false
+//     },
+//     {
+//         title: 'task2', completed: true
+//     }
+// ];
+
+
+var list = store.fetch('todolist') || [];
+
+
+
+var vm = new Vue({
+    el: '.main',
+    data: {
+        list: list,
+        todo: '',
+        //正在被编辑的todo， 
+        //为什么不在每个todo上加上一个表示编辑的edit属性， 因为同一时刻只有一个todo被编辑
+        editingTodo: '',
+        beforeTitle: '',
+        status: 'all'
+    },
+    //监控数据
+    watch: {
+        // list改变触发函数, 这种方式式浅监控， list中某个对象某一个属性发生变化，不会触发函数
+        // list: function(){
+        //     store.save('todolist', this.list); 
+        // }
+
+        list: {
+            handler: function(){
+                store.save('todolist', this.list);
+            },
+            //深度监控
+            deep: true
+        }
+    },
+    methods: {
+        addTodo: function(ev){
+
+            //vue中事件处理函数中this指向当前根实例
+            // console.log(this);
+
+            // if(ev.keyCode===13){
+            //     this.list.push({
+            //         title: ev.target.value
+            //     })
+            // }
+
+            this.list.push({
+                title: this.todo,
+                completed: false
+            })
+
+            this.todo = '';       
+        },
+        deleteTodo: function(todo){
+            //变异的方法
+            //vue提供一组方法，对数组进行操作的时候，会触发视图更新
+            //push() pop() shift() unshift() splice() sort() reverse() 
+            //这些方法有一个共同点， 会改变原数组
+            var i = this.list.indexOf(todo);
+            this.list.splice(i,1);
+        },
+        editTodo: function(todo){
+            this.beforeTitle = todo.title;
+            this.editingTodo = todo;
+        },
+        submitEdit: function(){
+            this.editingTodo = '';
+            this.beforeTitle = '';
+        },
+        cancelEdit: function(todo){
+            todo.title = this.beforeTitle;
+            this.editingTodo = '';
+            this.beforeTitle = '';
+        }
+    },
+    //自定义指令
+    directives: {
+        // 调用使用v-focus
+        'focus': {
+            //被绑定元素所在的模板更新时调用，而不论绑定值是否变化。通过比较更新前后的绑定值，可以忽略不必要的模板更新（详细的钩子函数参数见下）。
+            update: function(el, binding){
+                // el为使用指令的元素
+                // binding { name value oldVaue expression ..}
+                // value为传入的表达式的计算值
+
+                if(binding.value===true){
+                    el.focus();
+                }
+
+            }
+        }
+    },
+    //计算属性
+    //模板是为了描述视图的结构， 在模板中放入太多逻辑， 导致模板过重难以维护
+    //在计算一个计算属性时， vue更新它的依赖列表并缓存结果， 当其中一个依赖发生了变化，缓存的结果才无效
+    computed: {
+        uncompletedLength: function(){
+            return this.list.filter(function(item){
+                return !item.completed;
+            }).length;
+        }, 
+        filterList: function  () {
+            var status = this.status;
+            var list = this.list;
+            var filters = {
+                all: function(){
+                    return list;
+                },
+                completed: function(){
+                    return list.filter(function(item){
+                        return item.completed
+                    })
+                },
+                uncompleted: function(){
+                    return list.filter(function(item){
+                        return !item.completed
+                    })
+                }
+            }
+
+            return filters[status]();
+        }
+    }
+})
+
+window.addEventListener('hashchange', function(){
+    var hash = window.location.hash.slice(1);
+    vm.status = hash;
+    
+})
+</script>
+</body>
+</html>

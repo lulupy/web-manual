@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+
+	</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+html,body{
+	height: 100%;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas">
+	你的浏览器不支持画布,请更换浏览器
+</canvas>
+<script type="text/javascript" src="digit.js"></script>
+<script type="text/javascript">
+var WINDOW_WIDTH = document.body.clientWidth;
+var WINDOW_HEIGHT = document.body.clientHeight;
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+canvas.width = WINDOW_WIDTH;
+canvas.height = WINDOW_HEIGHT;
+var ball = {x: 512, y: 100, r: 20, g: 2, vx: -4, vy: 0, color: "#111"}
+// var ball = {x: 512, y: 100, r: 20, g: 2, vx: -4, vy: -10, color: "#111"} //将vy改成负数， 将有一个上抛的效果
+function render(){
+	context.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
+	context.beginPath()
+	context.fillColor = ball.color
+	context.arc(ball.x, ball.y, ball.r, 0, 2*Math.PI)
+	context.closePath()
+	context.fill()
+}
+
+function update(){
+	ball.x = ball.x + ball.vx;
+	ball.y = ball.y + ball.vy;
+	ball.vy = ball.vy + ball.g;
+
+	if(ball.y>WINDOW_HEIGHT-ball.r){//当小球的高度大于画布的高度减去小球一半的高度
+		ball.y = WINDOW_HEIGHT-ball.r;
+		ball.vy = -ball.vy; //反向
+		// ball.vy = -ball.vy*0.5//加入摩擦系数
+	}
+}
+
+
+setInterval(function () {
+	render();
+	update();
+},50)
+
+
+</script>
+</body>
+</html>

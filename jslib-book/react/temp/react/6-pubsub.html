@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./src/pubsub.js"></script>
+</head>
+<body>
+<div id="div1">1111</div>
+<script>
+var div1 = document.getElementById('div1');
+
+//subscribe订阅
+div1.onclick = function(){
+	PubSub.publish('aaa', 1);
+}
+
+//publish subscribe  订阅发布模式
+//dom的事件就是订阅发布模式
+
+PubSub.subscribe('aaa', function(evName, arg1){
+	alert(evName);
+	alert(arg1);
+});
+
+
+</script>
+</body>
+</html>

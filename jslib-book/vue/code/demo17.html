@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo17</title>
+</head>
+<body>
+<div id="demo17">
+    <parent-componet></parent-componet>
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+Vue.component('parent-componet', {
+    data: function(){
+        return {
+            count: 2
+        }
+    },
+    template: `
+        <div>
+            <child-componet v-bind:count="count"></child-componet>
+        </div>
+    `
+});
+
+Vue.component('child-componet', {
+    props: ['count'],
+    data: function(){
+        return {
+            incrementCount: this.count
+        } 
+    },
+    template: `
+        <div>
+            <button v-on:click="addOne">++</button>
+            <div>{{incrementCount}}</div>
+        </div>      
+    `,
+    methods: {
+        addOne: function(){
+            this.incrementCount++;
+        }
+    }
+});
+
+
+new Vue({
+    el: '#demo17'
+});
+</script>
+</body>
+</html>

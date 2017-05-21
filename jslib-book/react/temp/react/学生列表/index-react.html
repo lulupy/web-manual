@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <script src="./src/react.js"></script>
+    <script src="./src/react-dom.js"></script>
+    <script src="./src/browser.min.js"></script>
+    <script src="./src/pubsub.js"></script>
+</head>
+<body>
+    <div id="student-app"></div>
+<script type="text/babel">
+
+
+var data = [
+        {name:"studeent1",gender:"女",age:18,height:165,weigth:45,_id:2},
+        {name:"student2",gender:"男",age:35,height:180,weigth:80,_id:0},
+        {name:"student3",gender:"女",age:22,height:171,weigth:60,_id:6},
+        {name:"student4",gender:"男",age:26,height:175,weigth:70,_id:1},
+        {name:"student2",gender:"女",age:18,height:170,weigth:50,_id:3},
+        {name:"student4",gender:"女",age:38,height:166,weigth:50,_id:4},
+        {name:"student3",gender:"男",age:30,height:175,weigth:65,_id:5}
+];
+
+
+var StudentItem = React.createClass({
+    deleteItem: function(){
+        PubSub.publish('deleteItem', this.props.item._id);
+    },
+    render: function(){
+        var student = this.props.item;
+        return (
+            <tr>
+                <td>{student.name}</td>
+                <td>{student.gender}</td>
+                <td>{student.age}</td>
+                <td>{student.height}</td>
+                <td>{student.weigth}</td>
+                <td><a href="javascript:;" onClick={this.deleteItem}>删除</a> </td>
+            </tr>
+        );
+    }
+});
+
+var StudentInfo = React.createClass({
+    render: function(){
+        var studentData = this.props.studentData;
+
+        return (
+            <table className="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>年龄</th>
+                        <th>身高（cm）</th>
+                        <th>体重（kg）</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tb">
+                    {
+                        studentData.map(function(student, i){
+                            return (
+                                <StudentItem  item={student} key={i}/>
+                            );
+                        })
+                    }
+                    
+                </tbody>
+            </table>
+        );
+    }
+});
+
+var StudentApp = React.createClass({
+
+    componentDidMount: function(){
+        var self = this;
+        PubSub.subscribe('deleteItem', function(evName, _id){
+            var studentData = self.state.studentData;
+            studentData = studentData.filter(function(student){
+                return student._id !== _id;
+            });
+
+            self.setState({
+                studentData: studentData
+            })            
+
+
+        })
+    },
+    getInitialState: function(){
+        return {
+            studentData: data,
+            gender: 'all',
+            changeName: ''
+        }
+    },
+    genderFilterHandle: function(ev){
+        this.setState({
+            gender: ev.target.value
+        })
+    },
+    nameFilterHandle: function(ev){
+        this.setState({
+            changeName: ev.target.value
+        })
+    },
+    render: function(){
+        var studentData = this.state.studentData;
+        var gender = this.state.gender;
+        var changeName = this.state.changeName;
+
+        if(gender!=='all'){
+            studentData = studentData.filter(function(student){
+                return student.gender == gender;
+            })
+        }
+
+        if(changeName!==''){
+            studentData = studentData.filter(function(student){
+                return student.name == changeName;
+            })
+        }
+
+        return (
+            <div className="container">
+                <h1>学员成信息表</h1>
+                <div className="bs-example">
+                    <div className="form-group">
+                        <label>按性别筛选</label>
+                        <select className="form-control" onChange={this.genderFilterHandle}>
+                            <option value="all">all</option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label>按名字筛选</label>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            placeholder="请输入名字"
+                            onChange={this.nameFilterHandle} 
+                            />
+                    </div>
+                </div>
+                <div className="table-responsive">
+                    <StudentInfo studentData={studentData}/>
+                </div>
+            </div>
+        );
+    }
+});
+
+
+
+
+ReactDOM.render( <StudentApp/>, document.getElementById('student-app') );
+</script>
+</body>
+</html>

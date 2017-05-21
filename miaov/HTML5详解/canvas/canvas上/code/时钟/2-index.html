@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+
+	</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+html,body{
+	height: 100%;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas">
+	你的浏览器不支持画布,请更换浏览器
+</canvas>
+<script type="text/javascript" src="digit.js"></script>
+<script type="text/javascript">
+var WINDOW_WIDTH = document.body.clientWidth;
+var WINDOW_HEIGHT = document.body.clientHeight;
+var MARGIN_LEFT = 100;
+var MARGIN_TOP = 50;
+var RADIUS = 10;
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+canvas.width = WINDOW_WIDTH;
+canvas.height = WINDOW_HEIGHT;
+var oldHour = 0;
+var oldMin = 0;
+var oldSec = 0;
+//绘制函数
+function render(){
+
+	context.clearRect(0,0,WINDOW_WIDTH, WINDOW_HEIGHT);
+	var hourHight = Math.floor(oldHour/10);
+	var hourLow = oldHour%10;
+	var minHight = Math.floor(oldMin/10);
+	var minLow = oldMin%10;
+
+	var secHight = Math.floor(oldSec/10);
+	var secLow = oldSec%10;
+
+
+	// 绘制小时高位
+	renderDigit(MARGIN_LEFT, MARGIN_TOP, Math.floor(hourHight), context );
+	//绘制小时低位
+	renderDigit(MARGIN_LEFT+7*(2*(RADIUS+1))+10, MARGIN_TOP, hourLow, context );
+	//绘制‘：’
+	renderDigit(MARGIN_LEFT+2*(7*(2*(RADIUS+1))+10), MARGIN_TOP, 10, context );
+	renderDigit(MARGIN_LEFT+2*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10), MARGIN_TOP, minHight, context );
+	renderDigit(MARGIN_LEFT+3*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10), MARGIN_TOP, minLow, context );
+	renderDigit(MARGIN_LEFT+4*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10), MARGIN_TOP, 10, context );
+	renderDigit(MARGIN_LEFT+4*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10)*2, MARGIN_TOP, secHight, context );
+	renderDigit(MARGIN_LEFT+5*(7*(2*(RADIUS+1))+10)+(4*(2*(RADIUS+1))+10)*2, MARGIN_TOP, secLow, context );
+}
+function update(){
+	var now  = new Date()
+	var hour = now.getHours();
+	var min = now.getMinutes();
+	var sec = now.getSeconds();
+
+	if(sec !== oldSec){
+		oldSec = sec;
+		oldHour = hour;
+		oldMin = min;
+	}
+}
+function renderDigit(x, y, num, cxt){
+	var digitNum = digit[num];
+	cxt.fillStyle = "rgb(0,102,153)";
+	for (var i=0; i< digitNum.length;i++){
+		for(var j=0;j<digitNum[i].length;j++){
+			if(digitNum[i][j]==1){
+				cxt.beginPath();
+				cxt.arc(x+(RADIUS+1)*2*j, y+(RADIUS+1)*2*i, 10, 0, 2*Math.PI);
+				cxt.stroke();
+				cxt.fill();
+			}
+		}
+	}
+}
+
+update();
+render();
+
+setInterval(function(){
+	
+	update()
+	render()
+}, 1000)
+</script>
+</body>
+</html>

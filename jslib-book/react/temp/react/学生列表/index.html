@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+    <style type="text/css">
+    table th,
+    table td {
+        text-align: center;
+    }
+    </style>
+    <script>
+    var data = [
+					{stName:"studeent1",gender:"女",age:18,height:165,weigth:45,_id:2},
+					{stName:"student2",gender:"男",age:35,height:180,weigth:80,_id:0},
+					{stName:"student3",gender:"女",age:22,height:171,weigth:60,_id:6},
+					{stName:"student4",gender:"男",age:26,height:175,weigth:70,_id:1},
+					{stName:"student2",gender:"女",age:18,height:170,weigth:50,_id:3},
+					{stName:"student4",gender:"女",age:38,height:166,weigth:50,_id:4},
+					{stName:"student3",gender:"男",age:30,height:175,weigth:65,_id:5}
+				]
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>学员成信息表</h1>
+        <div class="bs-example">
+            <div class="form-group">
+                <label>按性别筛选</label>
+                <select class="form-control">
+                    <option value="all">all</option>
+                    <option value="1">男</option>
+                    <option value="0">女</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>按名字筛选</label>
+                <input type="text" class="form-control" placeholder="请输入名字">
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>年龄</th>
+                        <th>身高（cm）</th>
+                        <th>体重（kg）</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tb">
+                    <tr>
+                        <td>studeent1</td>
+                        <td>女</td>
+                        <td>18</td>
+                        <td>165</td>
+                        <td>45</td>
+                        <td><a href="javascript:;">删除</a> </td>
+                    </tr>
+                    <tr>
+                        <td>student2</td>
+                        <td>男</td>
+                        <td>35</td>
+                        <td>180</td>
+                        <td>80</td>
+                        <td><a href="javascript:;">删除</a> </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

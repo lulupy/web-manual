@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+.wrap{
+	border: 1px solid #111;
+}
+</style>
+</head>
+<body>
+
+<div id="container"></div>
+<script src="src/react.js"></script>
+<script src="src/react-dom.js"></script>
+<!-- 解析jsx语法 -->
+<script src="src/browser.min.js"></script>	
+
+<script type="text/babel">
+var container = document.getElementById('container');
+
+//refenrence  引用
+var MyComponent = React.createClass({
+  handleClick: function() {
+  	//真实的DOM元素
+    var oTextInput = this.refs.myTextInput;
+    var button = this.refs.button;
+    button.style.background = 'blue';
+    oTextInput.focus();
+    oTextInput.style.background = 'red';
+  },
+  render: function() {
+
+    return (
+      <div>
+        <input type="text" ref="myTextInput" />
+        <input ref="button" type="button" value="Focus the text input" onClick={this.handleClick} />
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(
+  <MyComponent />,
+  container
+);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo21</title>
+</head>
+<body>
+<div id="demo21">
+    <button v-on:click="changeComponent(0)">切换1</button>
+    <button v-on:click="changeComponent(1)">切换2</button>
+    <button v-on:click="changeComponent(2)">切换3</button>
+    <keep-alive>
+        <component v-bind:is="c"></component>
+    </keep-alive>
+    
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+var component1 = Vue.component('component1', {
+    template: '<div v-on:click="changeBg">组件1</div>',
+    methods: {
+        changeBg: function(ev){
+            ev.target.style.background = 'red';
+        }
+    }
+})
+var component2 = Vue.component('component2', {
+    template: '<div>组件2</div>'
+})
+var component3 = Vue.component('component3', {
+    template: '<div>组件3</div>'
+})
+
+var components = [component1, component2, component3];
+
+new Vue({
+    el: '#demo21',
+    data: {
+        c: component1
+    },
+    methods: {
+        changeComponent: function(index){
+            this.c = components[index];
+        }
+    }
+})
+
+</script>
+</body>
+</html>

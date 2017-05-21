@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background: #111;
+}
+#canvas{
+	display: block;
+	background: #fff;
+	margin: 20px auto;
+
+}
+</style>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500"></canvas>
+<script>
+var canvas = document.querySelector('#canvas');
+var context = canvas.getContext('2d');
+
+//画布的宽高
+var canvasW = canvas.width;
+var canvasH = canvas.height;
+
+//画布的中心点
+var centre = {
+	x: canvasW/2,
+	y: canvasH/2
+}
+
+//第一个圆半径
+var r1 = 200;
+//第2个圆半径
+var r2 = 150;
+
+var balls = [];
+var bullts = [];
+var angle = 0;
+
+//绘制小球运动轨迹
+function renderPath(){
+	
+	//第一个圆弧
+	context.beginPath();
+	context.arc(centre.x, centre.y, r1, -90*Math.PI/180, 180*Math.PI/180);
+	context.stroke();
+
+	//第2个圆弧
+	context.beginPath();
+	context.arc(centre.x- (r1-r2)　, centre.y, r2, 180*Math.PI/180, 360*Math.PI/180);
+	context.stroke();
+
+	//小球终点位置
+	context.beginPath();
+	context.arc(centre.x +  (2*r2- r1)　, centre.y, 10, 0, 360*Math.PI/180);
+	context.stroke();
+}
+
+
+function renderBalls(){
+	for(var i=0;i<balls.length;i++){
+		context.beginPath();
+		context.arc(balls[i].x, balls[i].y, 10, 0, 360*Math.PI/180);
+		context.fill();
+	}
+}
+
+
+
+function renderImg(){
+	context.save();
+
+	context.translate(centre.x, centre.y);
+	context.rotate(angle);
+	// console.log( angle/Math.PI*180 );
+	context.drawImage(img, -img.width/2, -img.height/2);
+	context.restore();
+}
+function renderBullts(){
+	for(var i=0;i<bullts.length;i++){
+		context.beginPath();
+		context.arc(bullts[i].x, bullts[i].y, 10, 0, 360*Math.PI/180);
+		context.fill();
+	}
+}
+
+function updateBalls(){
+	for(var i=0;i<balls.length;i++){
+		balls[i].angle += 1;
+		balls[i].x = balls[i].centreX +Math.cos( balls[i].angle*Math.PI/180 )*balls[i].r;
+		balls[i].y = balls[i].centreY +Math.sin( balls[i].angle*Math.PI/180 )*balls[i].r;
+
+		if(balls[i].angle==180){
+			balls[i].centreX = centre.x- (r1-r2);
+			balls[i].centreY = centre.y;
+			balls[i].r = r2;
+		}
+
+		if(balls[i].angle==360){
+			clearInterval(timer);
+		}
+	}
+}
+
+function getAngle(ev){
+	var angle = Math.atan( (ev.clientX - canvas.offsetLeft - centre.x)/ (ev.clientY - canvas.offsetTop - centre.y));
+
+	//右上半园
+	if(  angle<0 && ev.clientX - canvas.offsetLeft - centre.x>0 ){
+		angle = -angle;
+	}
+	//右下半园
+	else if(  angle>0 && ev.clientX - canvas.offsetLeft - centre.x>0 ){
+		
+		angle = Math.PI - angle;
+
+	}
+	// //左下半园
+	else if(  angle< 0 && ev.clientX - canvas.offsetLeft - centre.x<0 ){
+		angle = Math.PI - angle;
+	}
+	// //左上半园
+	else if(  angle> 0 && ev.clientX - canvas.offsetLeft - centre.x<0 ){
+		angle = 2*Math.PI - angle;
+	}
+	return angle;
+}
+
+function updateImg(ev){
+	angle = getAngle(ev);
+	console.log( angle/Math.PI*180 );
+	
+}
+
+function updateBullts(){
+	for(var i=0;i<bullts.length;i++){
+		bullts[i].x += bullts[i].vx;
+		bullts[i].y += bullts[i].vy;
+	}
+}
+
+//碰撞检测
+function collisionDetection(){
+	for(var i=0;i<bullts.length;i++){
+		for(var j=0;j<balls.length;j++){
+			//圆的碰撞检测:  两个圆心的之间的距离是否小于两个圆半径之和
+			if(   Math.sqrt( Math.pow(bullts[i].x-balls[j].x, 2) +  Math.pow(bullts[i].y-balls[j].y, 2) ) < 2*10  ){
+				bullts.splice(j, 1);
+				balls.splice(i, 1);
+				j--;
+				i--;
+			}
+		}
+	}
+}
+function addBullt(ev){
+	//子弹发射角度，　y轴负方向为0度，　顺时针增加
+	var angle = getAngle(ev);
+
+	//子弹速度
+	var v = 　10;
+	var vx = Math.sin(Math.PI-angle)*v;
+	var vy = Math.cos(Math.PI-angle) * v;
+	var bullt = {
+		x: centre.x,
+		y: centre.y,
+		vx: vx,
+		vy: vy
+	}
+
+	bullts.push(bullt);
+}
+function update(){
+	updateBalls();
+	updateBullts();
+	collisionDetection();
+}
+
+function render(){
+	context.clearRect(0,0, canvasW, canvasH);
+	renderPath();
+	renderBalls();
+	renderImg();
+	renderBullts();
+}
+var timer;
+
+
+var img = new Image();
+img.onload = function(){
+	timer = setInterval(function(){
+		update();
+		render();
+	}, 1000/60);
+}
+img.src = 'person.png';
+
+var i = 10;
+var ballTimer = setInterval(function(){
+	balls.push({
+		angle: -90,//起始角度
+		centreX: centre.x,
+		centreY: centre.y,
+		r: r1
+	});
+	i--;
+	if(i==0){
+		clearInterval(ballTimer);
+	}
+}, 300);
+
+
+window.onmousemove = updateImg;
+window.onmousedown = addBullt;
+</script>
+</body>
+</html>

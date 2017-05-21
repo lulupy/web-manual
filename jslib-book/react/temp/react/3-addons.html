@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div id="demo"></div>
+
+<script src="lib/react-with-addons.js"></script>
+<script src="lib/react-dom.js"></script>
+<script src="lib/browser.min.js"></script>
+<script type="text/babel">
+
+var FirstCompont = React.createClass({
+    mixins: [React.addons.LinkedStateMixin],
+    getInitialState: function(){
+        return {
+            msg: this.props.value
+        }
+    },
+    render: function(){
+        return (
+        <div>
+            <input value={this.state.msg} valueLink={this.linkState('msg')}/> 
+            <p>{this.state.msg}</p>   
+        </div>
+        );
+    }
+});
+
+var value = 'hello world';
+console.log(0);
+console.log(ReactDOM.render );
+console.log(1);
+
+ReactDOM.render( <FirstCompont value={value} />,document.getElementById('demo') );
+</script>
+</body>
+</html>

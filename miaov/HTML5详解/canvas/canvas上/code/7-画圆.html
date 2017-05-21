@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<canvas id="canvas" width="900" height="700">
+	你的浏览器不支持画布,请更换浏览器
+</canvas>
+
+<script type="text/javascript">
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+context.arc( 500, 500, 200, 0, Math.PI*2);
+context.stroke();
+
+
+</script>
+</body>
+</html>

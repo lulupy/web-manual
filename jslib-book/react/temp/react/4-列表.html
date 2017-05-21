@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div id="demo"></div>
+<script src="lib/react.js"></script>
+<script src="lib/react-dom.js"></script>
+<script src="lib/browser.min.js"></script>
+<script type="text/babel">
+
+var FirstCompont = React.createClass({
+
+    render: function(){
+        return (
+        <div>
+            <ul>
+                {
+                    this.props.value.map(function(item, index){
+                        return <li key={index}>{item}</li>;
+                    })
+                }
+            </ul>
+        </div>
+        );
+    }
+});
+
+var arr = [1,2,3,4];
+ReactDOM.render( <FirstCompont value={arr} />, document.getElementById('demo') );
+</script>
+</body>
+</html>

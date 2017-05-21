@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+.wrap{
+    width: 500px;
+    margin: 100px auto;
+    perspective: 800px;
+    transform-style: preserve-3d;
+}
+.wrap h1{
+    height: 100px;
+    background: red;
+    z-index: 99;
+    position: relative;
+
+
+}
+.wrap div{
+    transform-origin: top;
+    /*这句很重要 每个div都应该保持3d空间*/
+    transform-style: preserve-3d;
+    transform: rotateX(-120deg);
+}
+.wrap span{
+    display: block;
+    box-sizing: border-box;
+    height: 100px;
+    border: 1px solid #111;
+    background: #ccc;
+}
+@keyframes open{
+    0%{
+        transform: rotateX(-120deg);
+    }
+    25%{
+        transform: rotateX(30deg);
+    }
+    50%{
+        transform: rotateX(-15deg);
+    }
+    75%{
+        transform: rotateX(8deg);
+    }
+    100%{
+        transform: rotateX(0deg);
+    }
+
+}
+.wrap .open{
+    animation: open 1.2s;
+    animation-fill-mode: forwards; 
+}
+@keyframes close{
+    100%{
+        transform: rotateX(-120deg);
+    }
+    
+    0%{
+        transform: rotateX(0deg);
+    }
+
+}
+.wrap .close{
+    animation: close 1.2s;
+    animation-fill-mode: both; 
+}
+</style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>标题</h1>
+        <div>
+            <span>1</span>
+            <div>
+                <span>2</span>
+                <div>
+                    <span>3</span>
+                    <div>
+                        <span>4</span>
+                        <div>
+                            <span>5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button>展开</button>
+<script>
+var aDiv = document.querySelectorAll('.wrap div');
+var btn = document.querySelector('button');
+var onOff = false;
+btn.onclick = function(){
+    if(!onOff){
+        this.innerHTML = '收起';
+        aDiv.forEach(function(elem, i){
+            elem.style.animationDelay = i*.2 + 's';
+            elem.className = 'open';
+
+        });       
+    }
+    else{
+        this.innerHTML = '展开';
+        aDiv.forEach(function(elem, i){
+            elem.style.animationDelay = 0.8-i*.2 + 's';
+            elem.className = 'close';
+
+        });    
+    }
+    onOff = !onOff;
+}
+
+</script>
+</body>
+</html>

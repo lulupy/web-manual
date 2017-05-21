@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo12</title>
+</head>
+<body>
+<div id="demo14">
+    <table>
+        <thead></thead>
+        <custom-tbody></custom-tbody>
+    </table>
+    <custom-select btn-text="搜索"></custom-select>
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+
+
+
+Vue.component('custom-tbody', {
+
+    template: '<tbody></tbody>'
+});
+var vm = new Vue({
+    el: '#demo14'
+    
+})
+
+</script>
+</body>
+</html>

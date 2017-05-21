@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+.wrap{
+	border: 1px solid #111;
+}
+</style>
+</head>
+<body>
+
+<div id="container"></div>
+
+</body>
+<script src="src/react.js"></script>
+<script src="src/react-dom.js"></script>
+<!-- 解析jsx语法 -->
+<script src="src/browser.min.js"></script>  
+
+<script type="text/babel">
+var Input = React.createClass({
+  getInitialState: function(){
+    return {
+      text: 'hello!'
+    }
+  },
+  changeHandle: function(ev){
+    var value = ev.target.value;
+    this.setState({
+      text: value
+    })
+  },
+  render: function(){
+    console.log(1);
+    var text = this.state.text;
+    return (
+      <div>
+        <input value={text} onChange={this.changeHandle}/>
+        <p>{text}</p>
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(<Input/>, document.getElementById('container'));
+</script>
+</html>

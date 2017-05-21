@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background: #111;
+}
+#canvas{
+	display: block;
+	background: #fff;
+	margin: 100px auto 30px auto;
+}
+p{
+	text-align: center;
+	color: #fff;
+	font-size: 50px;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas" width="400" height="400"></canvas>
+<p>
+	<span>新</span>
+	<span>年</span>
+	<span>快</span>
+	<span>乐</span>	
+</p>
+<script>
+
+
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+//画布宽高
+var w = canvas.width;
+var h = canvas.height;
+var aSpan = document.getElementsByTagName('span');
+
+for(var i=0;i<aSpan.length;i++){
+	aSpan[i].onclick = function(){
+		//要显示的文字
+		var s = this.innerHTML;
+		console.time(1);
+		render(s);
+		console.timeEnd(1);
+	}
+}
+
+
+
+function render(s){
+
+
+	context.clearRect(0,0,w, h);
+
+	// 绘制文字
+
+	//文字高宽
+	var textH = 200;
+	var textW;
+	context.font = textH+'px impact';
+	context.textBaseline = 'top';
+	textW = context.measureText(s).width;
+	context.fillText(s, (w-textW)/2, (h-textH)/2);
+
+	//获取文字像素信息
+	var imgData = context.getImageData((w-textW)/2, (h-textH)/2, textW, textH);
+
+	context.clearRect(0,0,w, h);
+
+	//随机获取要显示的像素点的位置
+	var worker = new Worker('main.js');
+	worker.postMessage( {iTotal: imgData.data.length/4, iNeed: imgData.data.length/4/2} );
+	worker.onmessage = function(ev){
+		var points =  ev.data;
+		//根据获得的像素点的位置重新画图
+	
+		var newImgData = context.createImageData(textW, textH);
+
+		for(var i=0; i<points.length;i++){
+			var point = points[i];
+			var x = point%textW;
+			var y = parseInt(point/textW);
+			var color = getXY(imgData, x, y);
+			setXY(newImgData, x, y, color);
+		}
+
+		context.putImageData(newImgData, (w-textW)/2, (h-textH)/2);
+	}
+	
+}
+
+
+function getXY(oImg,x,y){
+		
+		var w = oImg.width;
+		var h = oImg.heigth;
+		var d = oImg.data;
+		
+		var color = [];
+		
+		color[0] = d[4*(y*w+x)];
+		color[1] = d[4*(y*w+x)+1];
+		color[2] = d[4*(y*w+x)+2];
+		color[3] = d[4*(y*w+x)+3];
+		
+		return color;
+		
+	}
+	
+	
+function setXY(oImg,x,y,color){
+	
+	var w = oImg.width;
+	var h = oImg.heigth;
+	var d = oImg.data;
+	
+	d[4*(y*w+x)] = color[0];
+	d[4*(y*w+x)+1] = color[1];
+	d[4*(y*w+x)+2] = color[2];
+	d[4*(y*w+x)+3] = color[3];
+	
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo07</title>
+</head>
+<body>
+<div id="demo07">
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+
+var data = {
+    text: 'hello world!'
+}
+var tpl = '<span>{{text}}</span>'
+var vm = new Vue({
+    el: '#demo07',
+    data: data,
+    template: tpl
+})
+
+</script>
+</body>
+</html>

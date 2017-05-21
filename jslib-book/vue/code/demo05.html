@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo05</title>
+</head>
+<body>
+<div id="demo05">
+    <span v-bind:customId="id">click</span>
+</div>
+<script src="./lib/vue.js"></script>
+<script>
+
+var data = {id: 1};
+
+var vm = new Vue({
+    el: '#demo05',
+    data: data,
+    methods: {
+        clickHandler: function(){
+            alert(1);
+        }
+    }
+})
+
+</script>
+</body>
+</html>

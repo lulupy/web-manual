@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Document</title>
+</head>
+<body>
+<div id="demo"></div>
+<script src="src/react.js"></script>
+<script src="src/react-dom.js"></script>
+<script src="src/browser.min.js"></script>
+
+
+<script type="text/babel">
+
+var FirstCompont = React.createClass({
+	getInitialState: function(){
+		return {
+			listArr: this.props.listArr
+		}
+	},
+	render: function(){
+		return (
+		<div>
+			<input ref="text_input" type="text"/>
+			<input type="button" value={this.props.send} onClick={this.addHandler}/>
+			<ListCompont list={this.state.listArr } />
+		</div>
+		);
+	},
+	addHandler: function(){
+		// console.log(this.refs.text_input.value);
+		var value = this.refs.text_input.value
+		var newArr = this.state.listArr.concat([value]);
+		this.setState({listArr: newArr});
+	}
+});
+
+
+var ListCompont = React.createClass({
+	render: function(){
+		return (<ul>
+			{
+				this.props.list.map(function(item, index){
+					return <li key={index}>{item}</li>;
+				})
+			}
+
+		</ul>);
+	}
+});
+
+var obj = {
+	send: '提交',
+	listArr: [1,2,3,,4]
+}
+
+ReactDOM.render(	<FirstCompont send={obj.send} listArr={obj.listArr} />, 
+					document.getElementById('demo') 
+				);
+
+
+</script>
+</body>
+</html>
